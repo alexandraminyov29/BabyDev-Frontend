@@ -14,6 +14,17 @@
 		574B3CC829999E0E00782AA7 /* BabyDevTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574B3CC729999E0E00782AA7 /* BabyDevTests.swift */; };
 		574B3CD229999E0E00782AA7 /* BabyDevUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574B3CD129999E0E00782AA7 /* BabyDevUITests.swift */; };
 		574B3CD429999E0E00782AA7 /* BabyDevUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574B3CD329999E0E00782AA7 /* BabyDevUITestsLaunchTests.swift */; };
+		57B10AFB29B64A3500101D10 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B10AFA29B64A3500101D10 /* NetworkManager.swift */; };
+		57B10AFC29B64A3500101D10 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B10AFA29B64A3500101D10 /* NetworkManager.swift */; };
+		57B10B0129B64CE400101D10 /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B10B0029B64CE400101D10 /* Register.swift */; };
+		57B10B0229B64CE400101D10 /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B10B0029B64CE400101D10 /* Register.swift */; };
+		57B10B0329B64CE400101D10 /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B10B0029B64CE400101D10 /* Register.swift */; };
+		57B10B0529B64CF900101D10 /* RegisterVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B10B0429B64CF900101D10 /* RegisterVM.swift */; };
+		57B10B0629B64CF900101D10 /* RegisterVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B10B0429B64CF900101D10 /* RegisterVM.swift */; };
+		57B10B0829B64D2700101D10 /* RegisterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B10B0729B64D2700101D10 /* RegisterModel.swift */; };
+		57B10B0929B64D2700101D10 /* RegisterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B10B0729B64D2700101D10 /* RegisterModel.swift */; };
+		57B10B0B29B64D9300101D10 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B10B0A29B64D9300101D10 /* UserModel.swift */; };
+		57B10B0C29B64D9300101D10 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B10B0A29B64D9300101D10 /* UserModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +55,11 @@
 		574B3CCD29999E0E00782AA7 /* BabyDevUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BabyDevUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		574B3CD129999E0E00782AA7 /* BabyDevUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyDevUITests.swift; sourceTree = "<group>"; };
 		574B3CD329999E0E00782AA7 /* BabyDevUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyDevUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		57B10AFA29B64A3500101D10 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		57B10B0029B64CE400101D10 /* Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Register.swift; sourceTree = "<group>"; };
+		57B10B0429B64CF900101D10 /* RegisterVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterVM.swift; sourceTree = "<group>"; };
+		57B10B0729B64D2700101D10 /* RegisterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterModel.swift; sourceTree = "<group>"; };
+		57B10B0A29B64D9300101D10 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,10 +110,14 @@
 		574B3CB529999E0D00782AA7 /* BabyDev */ = {
 			isa = PBXGroup;
 			children = (
+				57B10AFF29B64CA000101D10 /* View */,
+				57B10AFE29B64C7E00101D10 /* Model */,
+				57B10AFD29B64C7500101D10 /* ViewModel */,
 				574B3CB629999E0D00782AA7 /* BabyDevApp.swift */,
 				574B3CB829999E0D00782AA7 /* ContentView.swift */,
 				574B3CBA29999E0E00782AA7 /* Assets.xcassets */,
 				574B3CBC29999E0E00782AA7 /* Preview Content */,
+				57B10AFA29B64A3500101D10 /* NetworkManager.swift */,
 			);
 			path = BabyDev;
 			sourceTree = "<group>";
@@ -125,6 +145,31 @@
 				574B3CD329999E0E00782AA7 /* BabyDevUITestsLaunchTests.swift */,
 			);
 			path = BabyDevUITests;
+			sourceTree = "<group>";
+		};
+		57B10AFD29B64C7500101D10 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				57B10B0429B64CF900101D10 /* RegisterVM.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		57B10AFE29B64C7E00101D10 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				57B10B0729B64D2700101D10 /* RegisterModel.swift */,
+				57B10B0A29B64D9300101D10 /* UserModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		57B10AFF29B64CA000101D10 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				57B10B0029B64CE400101D10 /* Register.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,7 +302,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57B10AFB29B64A3500101D10 /* NetworkManager.swift in Sources */,
+				57B10B0B29B64D9300101D10 /* UserModel.swift in Sources */,
 				574B3CB929999E0D00782AA7 /* ContentView.swift in Sources */,
+				57B10B0829B64D2700101D10 /* RegisterModel.swift in Sources */,
+				57B10B0129B64CE400101D10 /* Register.swift in Sources */,
+				57B10B0529B64CF900101D10 /* RegisterVM.swift in Sources */,
 				574B3CB729999E0D00782AA7 /* BabyDevApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -266,7 +316,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57B10B0229B64CE400101D10 /* Register.swift in Sources */,
+				57B10B0929B64D2700101D10 /* RegisterModel.swift in Sources */,
+				57B10AFC29B64A3500101D10 /* NetworkManager.swift in Sources */,
 				574B3CC829999E0E00782AA7 /* BabyDevTests.swift in Sources */,
+				57B10B0C29B64D9300101D10 /* UserModel.swift in Sources */,
+				57B10B0629B64CF900101D10 /* RegisterVM.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,6 +329,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57B10B0329B64CE400101D10 /* Register.swift in Sources */,
 				574B3CD429999E0E00782AA7 /* BabyDevUITestsLaunchTests.swift in Sources */,
 				574B3CD229999E0E00782AA7 /* BabyDevUITests.swift in Sources */,
 			);
