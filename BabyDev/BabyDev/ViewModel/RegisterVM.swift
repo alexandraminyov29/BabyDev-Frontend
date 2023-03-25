@@ -14,12 +14,12 @@ class RegisterVM: ObservableObject {
     func createAccount(person: RegisterModel) {
         NetworkManager
             .shared
-            .postRequest(fromURL: URL(string: "http://localhost:8081/api/user")!, task: person) {  (result: Result<RegisterModel, Error>) in
+            .postRequest(fromURL: URL(string: "http://localhost:8080/api/auth/register")!, task: person) {  (result: Result<RegisterModel, Error>) in
                 switch result {
                 case .success:
                     debugPrint("Success")
                 case .failure(let error):
-                    debugPrint("We got a failure trying to post. The error we got was: \(error.localizedDescription)")}
+                    debugPrint("We got a failure trying to post. The error we got was: \(error)")}
             }
     }
 }

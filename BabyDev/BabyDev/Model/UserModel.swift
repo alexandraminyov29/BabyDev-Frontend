@@ -10,11 +10,11 @@ import Foundation
 class UserModel: Codable, Identifiable, ObservableObject {
     
     var id: Int = 0
-    var first_name: String = ""
-    var last_name: String = ""
+    var firstName: String = ""
+    var lastName: String = ""
     var email: String = ""
     var password: String = ""
-    var phone_number: String = ""
-    var is_active: Bool = false
+    var phoneNumber: String = ""
+ //   var is_active: Bool = false
     
 }

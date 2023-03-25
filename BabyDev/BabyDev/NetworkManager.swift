@@ -77,20 +77,20 @@ final class NetworkManager {
                     print(String(data: data, encoding: .utf8)!)
                 }
             }
-            guard let data = data else {
-                completion(.failure(NSError()))
-                return
-            }
-            
-            let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
-            do {
-                let user = try decoder.decode(T.self, from: data)
-                print(user)
-                completion(.success(user))
-            } catch {
-                completion(.failure(error))
-            }
+//            guard let data = data else {
+//                completion(.failure(NSError()))
+//                return
+//            }
+//            
+//            let decoder = JSONDecoder()
+//            decoder.keyDecodingStrategy = .convertFromSnakeCase
+//            do {
+//                let user = try decoder.decode(T.self, from: data)
+//                print(user)
+//                completion(.success(user))
+//            } catch {
+//                completion(.success())
+//            }
         }
         
         task.resume()

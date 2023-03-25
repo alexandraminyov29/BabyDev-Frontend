@@ -1,17 +1,17 @@
 //
-//  Register.swift
+//  Login.swift
 //  BabyDev
 //
-//  Created by Alexandra Minyov on 06.03.2023.
+//  Created by Alexandra Minyov on 25.03.2023.
 //
 
 import SwiftUI
 
-struct Register: View {
+struct Login: View {
     
     @State private var titleText: String = ""
-    @State private var person = RegisterModel()
-    @StateObject private var vm = RegisterVM()
+    @State private var person = LoginModel()
+    @StateObject private var vm = LoginVM()
     
     var body: some View {
         NavigationView {
@@ -22,14 +22,12 @@ struct Register: View {
                         .padding(.top, -250)
                     title
                     content
-                    registerButton
+                    loginButton
                     
                 }
             }
         }
-        
     }
-    
     private var title: some View {
         Text("\(titleText)")
             .font(Font.custom("Times New Roman", size: 35))
@@ -37,23 +35,14 @@ struct Register: View {
             .padding(.top, -50)
             .onAppear {
                 withAnimation(.easeInOut(duration: 0.6)) {
-                    titleText = "Register"
+                    titleText = "Login"
                 }
             }
     }
+
     private var content: some View {
         VStack(alignment: .center) {
-            
-            TextField("First Name", text: $person.firstName)
-                .cornerRadius(5.0)
-                .padding(.horizontal, 50)
-            SeparatorView()
-            TextField("Last Name", text: $person.lastName)
-                .cornerRadius(5.0)
-                .padding(.horizontal, 50)
-            SeparatorView()
             TextField("E-mail", text: $person.email)
-                .textInputAutocapitalization(.none)
                 .cornerRadius(5.0)
                 .padding(.horizontal, 50)
             SeparatorView()
@@ -61,21 +50,18 @@ struct Register: View {
                 .cornerRadius(5.0)
                 .padding(.horizontal, 50)
             SeparatorView()
-            TextField("Phone number", text: $person.phoneNumber)
-                .cornerRadius(5.0)
-                .padding(.horizontal, 50)
-            SeparatorView()
         }
     }
     
-    private var registerButton: some View {
-        Button("Sign Up") {
-            vm.createAccount(person: person)
+    private var loginButton: some View {
+        Button("Sign In") {
+            vm.login(person: person)
         }
         .padding()
         .foregroundColor(.white)
         .background(Colors().purple.clipShape(Capsule()))
         .padding(.top, 30)
     }
-}
 
+
+}

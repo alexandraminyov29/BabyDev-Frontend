@@ -9,11 +9,11 @@ import Foundation
 
 class RegisterModel: Codable, Identifiable, ObservableObject {
     
-    var first_name: String = UserModel().first_name
-    var last_name: String = UserModel().last_name
+    var firstName: String = UserModel().firstName
+    var lastName: String = UserModel().lastName
     var email: String = UserModel().email
     var password: String = UserModel().password
     var confirmPassword: String = UserModel().password
-    var phone_number: String = UserModel().phone_number
+    var phoneNumber: String = UserModel().phoneNumber
     
 }
