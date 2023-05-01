@@ -7,8 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5717E2502A006F0C00507410 /* UIFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5717E24F2A006F0C00507410 /* UIFactory.swift */; };
 		572F371C29BFC8A400906C62 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572F371B29BFC8A400906C62 /* Colors.swift */; };
 		572F371E29BFCE4700906C62 /* SeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572F371D29BFCE4700906C62 /* SeparatorView.swift */; };
+		57482DE829E9E3BC00A24DE8 /* JobCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57482DE729E9E3BC00A24DE8 /* JobCardView.swift */; };
+		57482DE929E9E3BC00A24DE8 /* JobCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57482DE729E9E3BC00A24DE8 /* JobCardView.swift */; };
+		57482DEA29E9E3BC00A24DE8 /* JobCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57482DE729E9E3BC00A24DE8 /* JobCardView.swift */; };
+		57482DEC29E9E62E00A24DE8 /* JobCardVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57482DEB29E9E62E00A24DE8 /* JobCardVM.swift */; };
+		57482DED29E9E62E00A24DE8 /* JobCardVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57482DEB29E9E62E00A24DE8 /* JobCardVM.swift */; };
+		57482DEE29E9E62E00A24DE8 /* JobCardVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57482DEB29E9E62E00A24DE8 /* JobCardVM.swift */; };
+		5748D1C529E60124002470DB /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5748D1C429E60124002470DB /* AuthenticationManager.swift */; };
+		5748D1C629E60124002470DB /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5748D1C429E60124002470DB /* AuthenticationManager.swift */; };
+		5748D1C829E75800002470DB /* HomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5748D1C729E75800002470DB /* HomePage.swift */; };
 		574B3CB729999E0D00782AA7 /* BabyDevApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574B3CB629999E0D00782AA7 /* BabyDevApp.swift */; };
 		574B3CB929999E0D00782AA7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574B3CB829999E0D00782AA7 /* ContentView.swift */; };
 		574B3CBB29999E0E00782AA7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 574B3CBA29999E0E00782AA7 /* Assets.xcassets */; };
@@ -17,6 +27,8 @@
 		574B3CD229999E0E00782AA7 /* BabyDevUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574B3CD129999E0E00782AA7 /* BabyDevUITests.swift */; };
 		574B3CD429999E0E00782AA7 /* BabyDevUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574B3CD329999E0E00782AA7 /* BabyDevUITestsLaunchTests.swift */; };
 		5777089729CFB04300CC0F57 /* StartPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5777089629CFB04300CC0F57 /* StartPage.swift */; };
+		5777089929D0DE5300CC0F57 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5777089829D0DE5300CC0F57 /* SwiftUIView.swift */; };
+		5777089B29D0E9FA00CC0F57 /* JobModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5777089A29D0E9F900CC0F57 /* JobModel.swift */; };
 		57B10AFB29B64A3500101D10 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B10AFA29B64A3500101D10 /* NetworkManager.swift */; };
 		57B10AFC29B64A3500101D10 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B10AFA29B64A3500101D10 /* NetworkManager.swift */; };
 		57B10B0129B64CE400101D10 /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B10B0029B64CE400101D10 /* Register.swift */; };
@@ -52,8 +64,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5717E24F2A006F0C00507410 /* UIFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFactory.swift; sourceTree = "<group>"; };
 		572F371B29BFC8A400906C62 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		572F371D29BFCE4700906C62 /* SeparatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorView.swift; sourceTree = "<group>"; };
+		57482DE729E9E3BC00A24DE8 /* JobCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobCardView.swift; sourceTree = "<group>"; };
+		57482DEB29E9E62E00A24DE8 /* JobCardVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobCardVM.swift; sourceTree = "<group>"; };
+		5748D1C429E60124002470DB /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
+		5748D1C729E75800002470DB /* HomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePage.swift; sourceTree = "<group>"; };
 		574B3CB329999E0D00782AA7 /* BabyDev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BabyDev.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		574B3CB629999E0D00782AA7 /* BabyDevApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyDevApp.swift; sourceTree = "<group>"; };
 		574B3CB829999E0D00782AA7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -65,6 +82,8 @@
 		574B3CD129999E0E00782AA7 /* BabyDevUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyDevUITests.swift; sourceTree = "<group>"; };
 		574B3CD329999E0E00782AA7 /* BabyDevUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyDevUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		5777089629CFB04300CC0F57 /* StartPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartPage.swift; sourceTree = "<group>"; };
+		5777089829D0DE5300CC0F57 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
+		5777089A29D0E9F900CC0F57 /* JobModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobModel.swift; sourceTree = "<group>"; };
 		57B10AFA29B64A3500101D10 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		57B10B0029B64CE400101D10 /* Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Register.swift; sourceTree = "<group>"; };
 		57B10B0429B64CF900101D10 /* RegisterVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterVM.swift; sourceTree = "<group>"; };
@@ -142,6 +161,8 @@
 				574B3CBA29999E0E00782AA7 /* Assets.xcassets */,
 				574B3CBC29999E0E00782AA7 /* Preview Content */,
 				57B10AFA29B64A3500101D10 /* NetworkManager.swift */,
+				5748D1C429E60124002470DB /* AuthenticationManager.swift */,
+				5717E24F2A006F0C00507410 /* UIFactory.swift */,
 			);
 			path = BabyDev;
 			sourceTree = "<group>";
@@ -176,6 +197,7 @@
 			children = (
 				57B10B0429B64CF900101D10 /* RegisterVM.swift */,
 				57D79E5729CFA46F009BC48C /* LoginVM.swift */,
+				57482DEB29E9E62E00A24DE8 /* JobCardVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -186,6 +208,7 @@
 				57B10B0729B64D2700101D10 /* RegisterModel.swift */,
 				57B10B0A29B64D9300101D10 /* UserModel.swift */,
 				57D79E5529CFA414009BC48C /* LoginModel.swift */,
+				5777089A29D0E9F900CC0F57 /* JobModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -197,6 +220,9 @@
 				572F371D29BFCE4700906C62 /* SeparatorView.swift */,
 				57D79E5929CFA586009BC48C /* Login.swift */,
 				5777089629CFB04300CC0F57 /* StartPage.swift */,
+				5777089829D0DE5300CC0F57 /* SwiftUIView.swift */,
+				5748D1C729E75800002470DB /* HomePage.swift */,
+				57482DE729E9E3BC00A24DE8 /* JobCardView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -332,19 +358,26 @@
 			buildActionMask = 2147483647;
 			files = (
 				572F371E29BFCE4700906C62 /* SeparatorView.swift in Sources */,
+				5748D1C829E75800002470DB /* HomePage.swift in Sources */,
 				57B10AFB29B64A3500101D10 /* NetworkManager.swift in Sources */,
 				57D79E5A29CFA586009BC48C /* Login.swift in Sources */,
 				57D79E5429CF997A009BC48C /* Blur.swift in Sources */,
 				57D79E5629CFA414009BC48C /* LoginModel.swift in Sources */,
+				5777089B29D0E9FA00CC0F57 /* JobModel.swift in Sources */,
 				57B10B0B29B64D9300101D10 /* UserModel.swift in Sources */,
 				574B3CB929999E0D00782AA7 /* ContentView.swift in Sources */,
 				57B10B0829B64D2700101D10 /* RegisterModel.swift in Sources */,
+				57482DEC29E9E62E00A24DE8 /* JobCardVM.swift in Sources */,
+				5717E2502A006F0C00507410 /* UIFactory.swift in Sources */,
 				57B10B0129B64CE400101D10 /* Register.swift in Sources */,
+				5748D1C529E60124002470DB /* AuthenticationManager.swift in Sources */,
+				57482DE829E9E3BC00A24DE8 /* JobCardView.swift in Sources */,
 				5777089729CFB04300CC0F57 /* StartPage.swift in Sources */,
 				57D79E5829CFA46F009BC48C /* LoginVM.swift in Sources */,
 				572F371C29BFC8A400906C62 /* Colors.swift in Sources */,
 				57B10B0529B64CF900101D10 /* RegisterVM.swift in Sources */,
 				574B3CB729999E0D00782AA7 /* BabyDevApp.swift in Sources */,
+				5777089929D0DE5300CC0F57 /* SwiftUIView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,9 +385,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57482DED29E9E62E00A24DE8 /* JobCardVM.swift in Sources */,
 				57B10B0229B64CE400101D10 /* Register.swift in Sources */,
 				57B10B0929B64D2700101D10 /* RegisterModel.swift in Sources */,
+				5748D1C629E60124002470DB /* AuthenticationManager.swift in Sources */,
 				57B10AFC29B64A3500101D10 /* NetworkManager.swift in Sources */,
+				57482DE929E9E3BC00A24DE8 /* JobCardView.swift in Sources */,
 				574B3CC829999E0E00782AA7 /* BabyDevTests.swift in Sources */,
 				57B10B0C29B64D9300101D10 /* UserModel.swift in Sources */,
 				57B10B0629B64CF900101D10 /* RegisterVM.swift in Sources */,
@@ -365,6 +401,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57482DEE29E9E62E00A24DE8 /* JobCardVM.swift in Sources */,
+				57482DEA29E9E3BC00A24DE8 /* JobCardView.swift in Sources */,
 				57B10B0329B64CE400101D10 /* Register.swift in Sources */,
 				574B3CD429999E0E00782AA7 /* BabyDevUITestsLaunchTests.swift in Sources */,
 				574B3CD229999E0E00782AA7 /* BabyDevUITests.swift in Sources */,

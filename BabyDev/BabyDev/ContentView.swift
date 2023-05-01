@@ -7,22 +7,14 @@
 
 import SwiftUI
 
-
 struct ContentView: View {
     var body: some View {
         NavigationView {
-           // Register()
-            //Login()
-            StartPage()
-               
+            if AuthenticationManager.shared.shouldAskForLogin() {
+                StartPage()
+            } else {
+                HomePage()
+            }
         }
-       
-    }
-    
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
     }
 }

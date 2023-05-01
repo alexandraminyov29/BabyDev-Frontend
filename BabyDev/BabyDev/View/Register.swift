@@ -11,6 +11,7 @@ struct Register: View {
     
     @State private var titleText: String = ""
     @State private var person = RegisterModel()
+    @State private var shouldNavigate = false
     @StateObject private var vm = RegisterVM()
     
     var body: some View {
@@ -23,11 +24,10 @@ struct Register: View {
                     title
                     content
                     registerButton
-                    
                 }
             }
         }
-        
+        .navigationBarBackButtonHidden(true)
     }
     
     private var title: some View {
@@ -43,7 +43,6 @@ struct Register: View {
     }
     private var content: some View {
         VStack(alignment: .center) {
-            
             TextField("First Name", text: $person.firstName)
                 .cornerRadius(5.0)
                 .padding(.horizontal, 50)
@@ -56,12 +55,14 @@ struct Register: View {
                 .textInputAutocapitalization(.none)
                 .cornerRadius(5.0)
                 .padding(.horizontal, 50)
+                .autocapitalization(.none)
             SeparatorView()
             SecureField("Password",text: $person.password)
                 .cornerRadius(5.0)
                 .padding(.horizontal, 50)
             SeparatorView()
             TextField("Phone number", text: $person.phoneNumber)
+                .keyboardType(.decimalPad)
                 .cornerRadius(5.0)
                 .padding(.horizontal, 50)
             SeparatorView()
@@ -70,12 +71,21 @@ struct Register: View {
     
     private var registerButton: some View {
         Button("Sign Up") {
-            vm.createAccount(person: person)
+            vm.createAccount(person: person, shouldNavigate: $shouldNavigate)
         }
         .padding()
         .foregroundColor(.white)
         .background(Colors().purple.clipShape(Capsule()))
         .padding(.top, 30)
+        .background(
+            NavigationLink(
+                destination: Login(),
+                isActive: $shouldNavigate
+            ) {
+                EmptyView()
+            }
+                .hidden()
+        )
     }
 }
 

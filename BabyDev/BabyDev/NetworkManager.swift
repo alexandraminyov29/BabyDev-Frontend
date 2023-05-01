@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 final class NetworkManager {
     
@@ -13,7 +14,7 @@ final class NetworkManager {
     
     private init() {}
     
-    /// These are the errors this class might return
+    /// Errors this class might return
     enum ManagerErrors: Error {
         case invalidResponse
         case invalidStatusCode(Int)
@@ -25,8 +26,7 @@ final class NetworkManager {
                 completion(result)
             }
         }
-        
-        // Create the request.
+        // Create the request
         let request = buildRequest(from: url, httpMethod: HttpMethod.get)
         
         let urlSession = URLSession.shared.dataTask(with: request) { data, response, error in
@@ -50,17 +50,17 @@ final class NetworkManager {
                 completionOnMain(.failure(error))
             }
         }
-        
-        // Start the request
         urlSession.resume()
     }
     
     func postRequest<T: Codable>(fromURL url: URL, task: T, completion: @escaping (Result<T, Error>) -> Void) {
         
-        // Create the request.
+        // Create the request
         var request = buildRequest(from: url, httpMethod: HttpMethod.post)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("application/json", forHTTPHeaderField: "Accept")
+        
+        
         
         let taskData = try! JSONEncoder().encode(task)
         request.httpBody = taskData
@@ -75,22 +75,11 @@ final class NetworkManager {
                 print(httpResponse.statusCode)
                 if let data = data {
                     print(String(data: data, encoding: .utf8)!)
+                    if httpResponse.statusCode == 200 {
+                        completion(.success(task))
+                    }
                 }
             }
-//            guard let data = data else {
-//                completion(.failure(NSError()))
-//                return
-//            }
-//            
-//            let decoder = JSONDecoder()
-//            decoder.keyDecodingStrategy = .convertFromSnakeCase
-//            do {
-//                let user = try decoder.decode(T.self, from: data)
-//                print(user)
-//                completion(.success(user))
-//            } catch {
-//                completion(.success())
-//            }
         }
         
         task.resume()
@@ -99,7 +88,7 @@ final class NetworkManager {
 }
 
 extension NetworkManager {
-    /// The request method
+    /// Request method
     enum HttpMethod{
         case get
         case post

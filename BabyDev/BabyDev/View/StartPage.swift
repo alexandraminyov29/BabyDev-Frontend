@@ -13,27 +13,32 @@ struct StartPage: View {
         NavigationView {
             ZStack {
                 Colors().backgroundColor.edgesIgnoringSafeArea(.all)
-                VStack(spacing: .zero) {
+                VStack(alignment: .center, spacing: .zero) {
                     Image("startApp")
-                        .padding(.top, -250)
+                        .padding(.top, -150)
                     welcomeMessage
-                    HStack(spacing: .zero) {
+                    VStack(spacing: .zero) {
                         registerButton
                         loginButton
                     }
+                    .padding(.top, 100)
                 }
+                .padding(.bottom, -20)
             }
         }
     }
     
     private var welcomeMessage: some View {
         VStack(spacing: .zero) {
-            Text("Welcome to BabyDev")
-                .font(Font.custom("Times New Roman", size: 35))
-                .padding(.bottom, 20)
-            Text("Take your first baby steps of your jurney to success!")
+            Text("Welcome to BabyDev!")
+                .font(Font.custom("Times New Roman", size: 50))
+                .fixedSize(horizontal: false, vertical: true)
                 .multilineTextAlignment(.center)
-                .font(Font.custom("Times New Roman", size: 20))
+                .padding(.bottom, 50)
+            Text("Take your first baby steps of your jurney to success!")
+                .fixedSize(horizontal: false, vertical: true)
+                .multilineTextAlignment(.center)
+                .font(Font.custom("Times New Roman", size: 25))
         }
     }
     
@@ -51,10 +56,20 @@ struct StartPage: View {
                                )
                        }
                        .buttonStyle(PlainButtonStyle())
+                       .padding(.bottom, 20)
     }
     
     private var loginButton: some View {
-        Text("")
+        HStack(spacing: 7) {
+            Text("Already have an account?")
+                .font(.custom("Times New Roman", size: 18))
+            NavigationLink("Sign In", destination: Login())
+        }
     }
 }
 
+struct StartPage_Previews: PreviewProvider {
+    static var previews: some View {
+        StartPage()
+    }
+}
