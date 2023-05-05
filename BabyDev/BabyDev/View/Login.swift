@@ -17,7 +17,7 @@ struct Login: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Colors().backgroundColor.edgesIgnoringSafeArea(.all)
+                Color.backgroundColor.edgesIgnoringSafeArea(.all)
                 VStack {
                     Image("logonegru")
                         .padding(.top, -250)
@@ -63,7 +63,7 @@ struct Login: View {
         }
         .padding()
         .foregroundColor(.white)
-        .background(Colors().purple.clipShape(Capsule()))
+        .background(Color.purple.clipShape(Capsule()))
         .padding(.top, 30)
     }
     

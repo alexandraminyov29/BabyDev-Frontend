@@ -9,12 +9,23 @@ import SwiftUI
 
 class UIFactory {
     
-    // BUTTONS
+    private init() {}
+    
+    static let shared = UIFactory()
+    
+    
+    
+    // MARK: BUTTONS
     
 //static func primaryButton(title: String, action: @escaping () -> Void) -> some View {
 //    Button(action: action) {
-//       
+//
 //    }
 //}
 
+    // MARK: JOB CARDS
+    
+    func makeJobCardView(from jobModel: JobListViewModel) -> some View {
+        return JobCardView(job: jobModel)
+    }
 }

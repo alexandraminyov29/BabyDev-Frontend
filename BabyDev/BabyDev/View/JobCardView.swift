@@ -9,10 +9,32 @@ import SwiftUI
 
 struct JobCardView: View {
     
-    @State var job: [JobModel] = []
+  var job: JobListViewModel
+  @StateObject var vm = JobCardVM()
     
     var body: some View {
-        Text("")
+        ZStack {
+            Blur(style: .systemUltraThinMaterialDark).opacity(0.6)
+            VStack(spacing: .zero) {
+                HStack(spacing: 20) {
+                    Image("conti")
+                        .resizable()
+                        .frame(width: 70, height: 70)
+                        .clipShape(Capsule())
+                    
+                    Text(job.title)
+                        .bold()
+                    
+                }
+                Text(job.postedDate)
+                Text(job.name)
+                Text(job.experienceRequired)
+            }
+            .padding()
+        }
+        .frame(width: 350, height: 200)
+        .clipShape(RoundedRectangle(cornerSize: CGSize(width: 10, height: 10) ))
+
     }
 }
 

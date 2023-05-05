@@ -12,9 +12,9 @@ class JobModel: Codable, Identifiable, ObservableObject {
     
     var id: Int = 0
     var title: String = ""
-    var postedDate: Date = Date()
+    var postedDate: String = ""
     var experienceRequired: String = ""
-    var companyName: String = ""
+    var name: String = ""
     var isPromoted: Bool = false
     
 }

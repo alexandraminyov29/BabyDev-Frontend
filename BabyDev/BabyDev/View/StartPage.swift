@@ -12,7 +12,7 @@ struct StartPage: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Colors().backgroundColor.edgesIgnoringSafeArea(.all)
+                Color.backgroundColor.edgesIgnoringSafeArea(.all)
                 VStack(alignment: .center, spacing: .zero) {
                     Image("startApp")
                         .padding(.top, -150)
@@ -46,13 +46,13 @@ struct StartPage: View {
         NavigationLink(destination: Register(),
                                       isActive: $isLinkActive) {
                            Text("Create account")
-                .foregroundColor(isLinkActive ? .white : Colors().purple)
+                .foregroundColor(isLinkActive ? .white : Color.purple)
                                .padding()
-                               .background(isLinkActive ? Colors().purple : Color.white)
+                               .background(isLinkActive ? Color.purple : Color.white)
                                .cornerRadius(10)
                                .overlay(
                                    RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Colors().purple, lineWidth: 2)
+                                    .stroke(Color.purple, lineWidth: 2)
                                )
                        }
                        .buttonStyle(PlainButtonStyle())

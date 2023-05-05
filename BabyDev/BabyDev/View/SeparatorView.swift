@@ -13,7 +13,7 @@ struct SeparatorView: View {
             .frame(height: 1)
             .background(
                 LinearGradient(
-                    colors: [ Colors().lightPurple, .clear, Colors().lightPurple],
+                    colors: [ Color.lightPurple, .clear, Color.lightPurple],
                     startPoint: .leading,
                     endPoint: .trailing
                 )
