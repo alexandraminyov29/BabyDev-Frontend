@@ -41,6 +41,9 @@
 		577CBA8B2A05BACA001063F8 /* Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577CBA8A2A05BACA001063F8 /* Blur.swift */; };
 		577CBA8C2A05BACA001063F8 /* Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577CBA8A2A05BACA001063F8 /* Blur.swift */; };
 		577CBA8D2A05BACA001063F8 /* Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577CBA8A2A05BACA001063F8 /* Blur.swift */; };
+		577CBA8F2A0856C6001063F8 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577CBA8E2A0856C6001063F8 /* SearchBar.swift */; };
+		577CBA902A0856C6001063F8 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577CBA8E2A0856C6001063F8 /* SearchBar.swift */; };
+		577CBA912A0856C6001063F8 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577CBA8E2A0856C6001063F8 /* SearchBar.swift */; };
 		57B10AFB29B64A3500101D10 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B10AFA29B64A3500101D10 /* NetworkManager.swift */; };
 		57B10AFC29B64A3500101D10 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B10AFA29B64A3500101D10 /* NetworkManager.swift */; };
 		57B10B0129B64CE400101D10 /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B10B0029B64CE400101D10 /* Register.swift */; };
@@ -99,6 +102,7 @@
 		577CBA822A058766001063F8 /* CompanyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyModel.swift; sourceTree = "<group>"; };
 		577CBA862A0588C1001063F8 /* CompanyVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyVM.swift; sourceTree = "<group>"; };
 		577CBA8A2A05BACA001063F8 /* Blur.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Blur.swift; path = ../../../../../Blur.swift; sourceTree = "<group>"; };
+		577CBA8E2A0856C6001063F8 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		57B10AFA29B64A3500101D10 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		57B10B0029B64CE400101D10 /* Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Register.swift; sourceTree = "<group>"; };
 		57B10B0429B64CF900101D10 /* RegisterVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterVM.swift; sourceTree = "<group>"; };
@@ -240,6 +244,7 @@
 				5777089829D0DE5300CC0F57 /* SwiftUIView.swift */,
 				5748D1C729E75800002470DB /* HomePage.swift */,
 				57482DE729E9E3BC00A24DE8 /* JobCardView.swift */,
+				577CBA8E2A0856C6001063F8 /* SearchBar.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -381,6 +386,7 @@
 				57D79E5A29CFA586009BC48C /* Login.swift in Sources */,
 				577CBA872A0588C1001063F8 /* CompanyVM.swift in Sources */,
 				577CBA832A058766001063F8 /* CompanyModel.swift in Sources */,
+				577CBA8F2A0856C6001063F8 /* SearchBar.swift in Sources */,
 				57D79E5629CFA414009BC48C /* LoginModel.swift in Sources */,
 				5777089B29D0E9FA00CC0F57 /* JobModel.swift in Sources */,
 				57B10B0B29B64D9300101D10 /* UserModel.swift in Sources */,
@@ -412,6 +418,7 @@
 				577CBA882A0588C1001063F8 /* CompanyVM.swift in Sources */,
 				5748D1C629E60124002470DB /* AuthenticationManager.swift in Sources */,
 				577CBA8C2A05BACA001063F8 /* Blur.swift in Sources */,
+				577CBA902A0856C6001063F8 /* SearchBar.swift in Sources */,
 				57B10AFC29B64A3500101D10 /* NetworkManager.swift in Sources */,
 				57482DE929E9E3BC00A24DE8 /* JobCardView.swift in Sources */,
 				574B3CC829999E0E00782AA7 /* BabyDevTests.swift in Sources */,
@@ -432,6 +439,7 @@
 				577CBA892A0588C1001063F8 /* CompanyVM.swift in Sources */,
 				57B10B0329B64CE400101D10 /* Register.swift in Sources */,
 				577CBA8D2A05BACA001063F8 /* Blur.swift in Sources */,
+				577CBA912A0856C6001063F8 /* SearchBar.swift in Sources */,
 				574B3CD429999E0E00782AA7 /* BabyDevUITestsLaunchTests.swift in Sources */,
 				574B3CD229999E0E00782AA7 /* BabyDevUITests.swift in Sources */,
 			);
@@ -578,6 +586,7 @@
 				DEVELOPMENT_TEAM = RPC8X8MPRD;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -607,6 +616,7 @@
 				DEVELOPMENT_TEAM = RPC8X8MPRD;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

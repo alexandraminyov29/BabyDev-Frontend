@@ -12,6 +12,8 @@ class JobModel: Codable, Identifiable, ObservableObject {
     
     var id: Int = 0
     var title: String = ""
+    var location: String = ""
+    var type: String = ""
     var postedDate: String = ""
     var experienceRequired: String = ""
     var name: String = ""

@@ -20,6 +20,42 @@ final class NetworkManager {
         case invalidStatusCode(Int)
     }
     
+    func searchRequest<T: Decodable>(keyword: String, fromURL url: URL, completion: @escaping (Result<T, Error>) -> Void) {
+        let completionOnMain: (Result<T, Error>) -> Void = { result in
+            DispatchQueue.main.async {
+                completion(result)
+            }
+        }
+        // Create the request
+        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
+            components.queryItems = [URLQueryItem(name: "keyword", value: keyword)]
+            let request = buildRequest(from: components.url!, httpMethod: HttpMethod.get)
+        
+        let urlSession = URLSession.shared.dataTask(with: request) { data, response, error in
+
+            if let error = error {
+                completionOnMain(.failure(error))
+                return
+            }
+            
+            guard let urlResponse = response as? HTTPURLResponse else { return completionOnMain(.failure(ManagerErrors.invalidResponse)) }
+            if !(200..<300).contains(urlResponse.statusCode) {
+                return completionOnMain(.failure(ManagerErrors.invalidStatusCode(urlResponse.statusCode)))
+            }
+            
+            guard let data = data else { return }
+            do {
+                let users = try JSONDecoder().decode(T.self, from: data)
+                completionOnMain(.success(users))
+            } catch {
+                debugPrint("Could not translate the data to the requested type. Reason: \(error.localizedDescription)")
+                completionOnMain(.failure(error))
+            }
+        }
+        urlSession.resume()
+    }
+
+    
     func getRequest<T: Decodable>(fromURL url: URL, completion: @escaping (Result<T, Error>) -> Void) {
         let completionOnMain: (Result<T, Error>) -> Void = { result in
             DispatchQueue.main.async {
@@ -60,8 +96,6 @@ final class NetworkManager {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("application/json", forHTTPHeaderField: "Accept")
         
-        
-        
         let taskData = try! JSONEncoder().encode(task)
         request.httpBody = taskData
         
@@ -81,6 +115,7 @@ final class NetworkManager {
                 }
             }
         }
+        
         
         task.resume()
         

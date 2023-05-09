@@ -28,4 +28,10 @@ class UIFactory {
     func makeJobCardView(from jobModel: JobListViewModel) -> some View {
         return JobCardView(job: jobModel)
     }
+    
+    // MARK: SEARCH BAR
+    
+    func makeSearchBarView(from text: Binding<String>) -> some View {
+        return SearchBar(text: text)
+    }
 }
