@@ -26,6 +26,9 @@
 		574B3CC829999E0E00782AA7 /* BabyDevTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574B3CC729999E0E00782AA7 /* BabyDevTests.swift */; };
 		574B3CD229999E0E00782AA7 /* BabyDevUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574B3CD129999E0E00782AA7 /* BabyDevUITests.swift */; };
 		574B3CD429999E0E00782AA7 /* BabyDevUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574B3CD329999E0E00782AA7 /* BabyDevUITestsLaunchTests.swift */; };
+		57625D342A1418A000462C6D /* MainPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57625D332A1418A000462C6D /* MainPage.swift */; };
+		57625D362A155ED000462C6D /* TokenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57625D352A155ED000462C6D /* TokenModel.swift */; };
+		57625D3B2A156AF900462C6D /* JWTDecode in Frameworks */ = {isa = PBXBuildFile; productRef = 57625D3A2A156AF900462C6D /* JWTDecode */; };
 		5777089729CFB04300CC0F57 /* StartPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5777089629CFB04300CC0F57 /* StartPage.swift */; };
 		5777089929D0DE5300CC0F57 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5777089829D0DE5300CC0F57 /* SwiftUIView.swift */; };
 		5777089B29D0E9FA00CC0F57 /* JobModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5777089A29D0E9F900CC0F57 /* JobModel.swift */; };
@@ -95,6 +98,8 @@
 		574B3CCD29999E0E00782AA7 /* BabyDevUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BabyDevUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		574B3CD129999E0E00782AA7 /* BabyDevUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyDevUITests.swift; sourceTree = "<group>"; };
 		574B3CD329999E0E00782AA7 /* BabyDevUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyDevUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		57625D332A1418A000462C6D /* MainPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPage.swift; sourceTree = "<group>"; };
+		57625D352A155ED000462C6D /* TokenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenModel.swift; sourceTree = "<group>"; };
 		5777089629CFB04300CC0F57 /* StartPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartPage.swift; sourceTree = "<group>"; };
 		5777089829D0DE5300CC0F57 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
 		5777089A29D0E9F900CC0F57 /* JobModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobModel.swift; sourceTree = "<group>"; };
@@ -118,6 +123,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57625D3B2A156AF900462C6D /* JWTDecode in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -176,7 +182,6 @@
 				57B10AFD29B64C7500101D10 /* ViewModel */,
 				574B3CB629999E0D00782AA7 /* BabyDevApp.swift */,
 				574B3CB829999E0D00782AA7 /* ContentView.swift */,
-				574B3CBA29999E0E00782AA7 /* Assets.xcassets */,
 				574B3CBC29999E0E00782AA7 /* Preview Content */,
 				57B10AFA29B64A3500101D10 /* NetworkManager.swift */,
 				5748D1C429E60124002470DB /* AuthenticationManager.swift */,
@@ -230,6 +235,7 @@
 				5777089A29D0E9F900CC0F57 /* JobModel.swift */,
 				577CBA7A2A0571BC001063F8 /* JobListViewModel.swift */,
 				577CBA822A058766001063F8 /* CompanyModel.swift */,
+				57625D352A155ED000462C6D /* TokenModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -237,12 +243,14 @@
 		57B10AFF29B64CA000101D10 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				574B3CBA29999E0E00782AA7 /* Assets.xcassets */,
 				57B10B0029B64CE400101D10 /* Register.swift */,
 				572F371D29BFCE4700906C62 /* SeparatorView.swift */,
 				57D79E5929CFA586009BC48C /* Login.swift */,
 				5777089629CFB04300CC0F57 /* StartPage.swift */,
 				5777089829D0DE5300CC0F57 /* SwiftUIView.swift */,
 				5748D1C729E75800002470DB /* HomePage.swift */,
+				57625D332A1418A000462C6D /* MainPage.swift */,
 				57482DE729E9E3BC00A24DE8 /* JobCardView.swift */,
 				577CBA8E2A0856C6001063F8 /* SearchBar.swift */,
 			);
@@ -265,6 +273,9 @@
 			dependencies = (
 			);
 			name = BabyDev;
+			packageProductDependencies = (
+				57625D3A2A156AF900462C6D /* JWTDecode */,
+			);
 			productName = BabyDev;
 			productReference = 574B3CB329999E0D00782AA7 /* BabyDev.app */;
 			productType = "com.apple.product-type.application";
@@ -337,6 +348,9 @@
 				Base,
 			);
 			mainGroup = 574B3CAA29999E0C00782AA7;
+			packageReferences = (
+				57625D392A156AF900462C6D /* XCRemoteSwiftPackageReference "JWTDecode" */,
+			);
 			productRefGroup = 574B3CB429999E0D00782AA7 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -380,6 +394,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				572F371E29BFCE4700906C62 /* SeparatorView.swift in Sources */,
+				57625D362A155ED000462C6D /* TokenModel.swift in Sources */,
 				5748D1C829E75800002470DB /* HomePage.swift in Sources */,
 				577CBA8B2A05BACA001063F8 /* Blur.swift in Sources */,
 				57B10AFB29B64A3500101D10 /* NetworkManager.swift in Sources */,
@@ -403,6 +418,7 @@
 				572F371C29BFC8A400906C62 /* Colors.swift in Sources */,
 				57B10B0529B64CF900101D10 /* RegisterVM.swift in Sources */,
 				574B3CB729999E0D00782AA7 /* BabyDevApp.swift in Sources */,
+				57625D342A1418A000462C6D /* MainPage.swift in Sources */,
 				5777089929D0DE5300CC0F57 /* SwiftUIView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -751,6 +767,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		57625D392A156AF900462C6D /* XCRemoteSwiftPackageReference "JWTDecode" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/auth0/JWTDecode.swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		57625D3A2A156AF900462C6D /* JWTDecode */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 57625D392A156AF900462C6D /* XCRemoteSwiftPackageReference "JWTDecode" */;
+			productName = JWTDecode;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 574B3CAB29999E0C00782AA7 /* Project object */;
 }

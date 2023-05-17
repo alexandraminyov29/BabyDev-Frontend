@@ -75,7 +75,7 @@ struct Register: View {
         }
         .padding()
         .foregroundColor(.white)
-        .background(Color.purple.clipShape(Capsule()))
+        .background(Color.purple1.clipShape(Capsule()))
         .padding(.top, 30)
         .background(
             NavigationLink(

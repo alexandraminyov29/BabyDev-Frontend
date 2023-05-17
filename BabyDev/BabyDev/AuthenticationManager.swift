@@ -14,6 +14,7 @@ final class AuthenticationManager {
     private init() {}
     
     private let isLoggedInKey = "isLoggedIn"
+    private let user = "userId"
     private let loginTimestampKey = "loginTimestamp"
     
     func isLoggedIn() -> Bool {
@@ -22,6 +23,7 @@ final class AuthenticationManager {
     
     func setLoggedIn(_ isLoggedIn: Bool) {
         UserDefaults.standard.set(isLoggedIn, forKey: isLoggedInKey)
+       // UserDefaults.standard.set(user, forKey: user)
     }
     
     func setLoginTimestamp(_ timestamp: Date) {

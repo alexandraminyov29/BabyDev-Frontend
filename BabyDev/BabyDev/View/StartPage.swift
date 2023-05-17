@@ -46,13 +46,13 @@ struct StartPage: View {
         NavigationLink(destination: Register(),
                                       isActive: $isLinkActive) {
                            Text("Create account")
-                .foregroundColor(isLinkActive ? .white : Color.purple)
+                .foregroundColor(isLinkActive ? .white : Color.purple1)
                                .padding()
-                               .background(isLinkActive ? Color.purple : Color.white)
+                               .background(isLinkActive ? Color.purple1 : Color.white)
                                .cornerRadius(10)
                                .overlay(
                                    RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.purple, lineWidth: 2)
+                                    .stroke(Color.purple1, lineWidth: 2)
                                )
                        }
                        .buttonStyle(PlainButtonStyle())
@@ -64,12 +64,7 @@ struct StartPage: View {
             Text("Already have an account?")
                 .font(.custom("Times New Roman", size: 18))
             NavigationLink("Sign In", destination: Login())
+                .tint(Color.purple1)
         }
-    }
-}
-
-struct StartPage_Previews: PreviewProvider {
-    static var previews: some View {
-        StartPage()
     }
 }

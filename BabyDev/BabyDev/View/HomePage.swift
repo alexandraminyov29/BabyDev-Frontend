@@ -9,48 +9,51 @@ import SwiftUI
 
 struct HomePage: View {
     @State var jobModels: [JobListViewModel] = []
-    @State var text: String = ""
+    @State var searchText: String = ""
+    @State private var titleText: String = ""
     
     var body: some View {
-        
         NavigationView {
             ZStack() {
                 backgroundS
                 searchBar
                 VStack() {
-                    Text("BabyDev").font(.largeTitle).bold().fontWidth(.standard)
-                        .padding(.top, 60)
-                        .padding(.leading, -200)
+                    title
                     jobs
-                        .padding(.top, 47)
                 }
             }
         }
-        .padding(.top, -160)
+        .navigationBarBackButtonHidden(true)
+        .padding(.top, -50)
         .ignoresSafeArea(.all)
-        
-        
     }
+    
     @ViewBuilder
     private var backgroundS: some View {
-        
         Image("background")
             .resizable()
             .opacity(0.6)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         Color.homePageBG
             .ignoresSafeArea(.all)
-        
-        //  Color.backgroundColor.opacity(0.7)
-        
-        
+    }
+    
+    private var title: some View {
+        Text(titleText).font(.largeTitle).bold().fontWidth(.standard)
+            .padding(.top, 60)
+            .padding(.leading, -200)
+            .onAppear {
+                withAnimation(.easeInOut(duration: 0.8)) {
+                    titleText = "BabyDev"
+                }
+            }
     }
     
     private var searchBar: some View {
-        UIFactory.shared.makeSearchBarView(from: $text)
+        UIFactory.shared.makeSearchBarView(from: $searchText)
             .padding(.top, -320)
-            .onChange(of: text) { newValue in
-                NetworkManager.shared.searchRequest(keyword: text, fromURL: URL(string: "http://localhost:8080/api/jobs/search")! ) {(result: Result<[JobListViewModel], Error>) in
+            .onChange(of: searchText) { newValue in
+                NetworkManager.shared.searchRequest(keyword: searchText, fromURL: URL(string: "http://localhost:8080/api/jobs/search")! ) {(result: Result<[JobListViewModel], Error>) in
                     switch result {
                     case .success(let jobs):
                         self.jobModels = jobs
@@ -62,7 +65,6 @@ struct HomePage: View {
             }
     }
     
-    
     @ViewBuilder
     private var jobs: some View {
         ScrollView {
@@ -72,6 +74,7 @@ struct HomePage: View {
                 }
             }
         }
+        .padding(.top, 47)
         .onAppear {
             NetworkManager.shared.getRequest(fromURL: URL(string: "http://localhost:8080/api/jobs/all")!) {
                 (result: Result<[JobListViewModel], Error>) in
