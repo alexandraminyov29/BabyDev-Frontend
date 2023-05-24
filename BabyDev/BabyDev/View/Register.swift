@@ -20,11 +20,16 @@ struct Register: View {
                 Color.backgroundColor.edgesIgnoringSafeArea(.all)
                 VStack {
                     Image("logonegru")
+                        .resizable()
+                        .scaledToFit()
                         .padding(.top, -250)
                     title
+                        .scaledToFit()
                     content
                     registerButton
+                    loginButton
                 }
+                .padding(.top, 70)
             }
         }
         .navigationBarBackButtonHidden(true)
@@ -68,6 +73,18 @@ struct Register: View {
             SeparatorView()
         }
     }
+    
+    private var loginButton: some View {
+        HStack(spacing: 7) {
+            Text("Do you have an account?")
+            NavigationLink(destination: Login()) {
+                Label("Sign In", systemImage: "arrow.right.circle")
+                
+            }
+        }
+        .padding(.top, 50)
+    }
+
     
     private var registerButton: some View {
         Button("Sign Up") {

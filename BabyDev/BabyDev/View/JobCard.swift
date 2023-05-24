@@ -7,14 +7,17 @@
 
 import SwiftUI
 
-struct JobCardView: View {
+struct Jobcard: View {
     
-  var job: JobListViewModel
-  @StateObject var vm = JobCardVM()
+    var job: JobListViewModel
+    
+    @StateObject var vm = JobCardVM()
+    @State var isFavorite: Bool = false
     
     var body: some View {
         ZStack {
             background
+            favoriteButton
             HStack() {
                 VStack(alignment: .leading, spacing: .zero) {
                     jobHeader
@@ -22,19 +25,18 @@ struct JobCardView: View {
                     jobDetails
                 }
                 .padding()
-                Button("Apply") {
-                    vm.applyJob(jobId: job.id)
-                }
             }
+            applyButton
         }
         .frame(width: 370, height: 200)
         .clipShape(RoundedRectangle(cornerSize: CGSize(width: 10, height: 10) ))
+        .padding(.top, 7)
+        .padding(.bottom, 5)
     }
     
     @ViewBuilder
     private var background: some View {
-        Color.purple1.opacity(0.35)
-        Color.black.opacity(0.15)
+        Color.bej.opacity(1)
         Blur(style: .systemUltraThinMaterial).opacity(0.85)
     }
     
@@ -50,7 +52,7 @@ struct JobCardView: View {
             VStack(alignment: .leading) {
                 Text(job.title)
                     .font(.system(.title, design: .default))
-                        .fontWeight(.semibold)
+                    .fontWeight(.semibold)
                 SeparatorView()
                     .padding(.leading, -30)
                     .padding(.top, -10)
@@ -63,12 +65,28 @@ struct JobCardView: View {
             .padding(.leading, 90)
             .padding(.top, -10)
     }
-//    private var jobDate: some View {
-//        Text(job.postedDate)
-//            .font(.footnote)
-//            .padding(.trailing, 230)
-//            .padding(.top, 20)
-//    }
+    
+    private var favoriteButton: some View {
+        UIFactory.shared.makeFavoriteButton(isFavorite: job.favorite) {
+            vm.addJobToFavorites(jobId: job.id, isFavorite: job.favorite)
+        }
+        .padding(.top, -85)
+        .padding(.leading, 300)
+    }
+    
+    private var applyButton: some View {
+        UIFactory.shared.makeApplyButton {
+            vm.applyJob(jobId: job.id)
+        }
+        .padding(.top, 140)
+        .padding(.leading, 250)
+    }
+    //    private var jobDate: some View {
+    //        Text(job.postedDate)
+    //            .font(.footnote)
+    //            .padding(.trailing, 230)
+    //            .padding(.top, 20)
+    //    }
     
     @ViewBuilder
     private var jobDetails: some View {
@@ -90,7 +108,6 @@ struct JobCardView: View {
                     .padding(.leading, 2)
             }
         }
-
     }
 }
 

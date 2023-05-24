@@ -15,8 +15,11 @@ struct StartPage: View {
                 Color.backgroundColor.edgesIgnoringSafeArea(.all)
                 VStack(alignment: .center, spacing: .zero) {
                     Image("startApp")
+                        .resizable()
+                           .scaledToFit()
                         .padding(.top, -150)
                     welcomeMessage
+                        .scaledToFit()
                     VStack(spacing: .zero) {
                         registerButton
                         loginButton
@@ -31,14 +34,14 @@ struct StartPage: View {
     private var welcomeMessage: some View {
         VStack(spacing: .zero) {
             Text("Welcome to BabyDev!")
-                .font(Font.custom("Times New Roman", size: 50))
+                .font(Font.custom("Times New Roman", size: CGFloat(50)))
                 .fixedSize(horizontal: false, vertical: true)
                 .multilineTextAlignment(.center)
                 .padding(.bottom, 50)
             Text("Take your first baby steps of your jurney to success!")
                 .fixedSize(horizontal: false, vertical: true)
                 .multilineTextAlignment(.center)
-                .font(Font.custom("Times New Roman", size: 25))
+                .font(Font.custom("Times New Roman", size: CGFloat(25)))
         }
     }
     

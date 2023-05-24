@@ -13,6 +13,7 @@ class JobListViewModel: Codable, Identifiable, ObservableObject {
     var title: String = JobModel().title
     var location: String = JobModel().location
     var type: String = JobModel().type
+    var favorite: Bool = false
  //   var postedDate: String = ""
     var name: String = JobModel().name
     var experienceRequired: String = JobModel().experienceRequired

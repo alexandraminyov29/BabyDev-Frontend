@@ -20,8 +20,11 @@ struct Login: View {
                 Color.backgroundColor.edgesIgnoringSafeArea(.all)
                 VStack {
                     Image("logonegru")
+                        .resizable()
+                        .scaledToFit()
                         .padding(.top, -250)
                     title
+                        .scaledToFit()
                     content
                     loginButton
                     registerButton
@@ -33,7 +36,7 @@ struct Login: View {
     }
     private var title: some View {
         Text("\(titleText)")
-            .font(Font.custom("Times New Roman", size: 35))
+            .font(Font.custom("Times New Roman", size: CGFloat(35)))
             .foregroundColor(.black)
             .padding(.top, -50)
             .onAppear {
@@ -78,7 +81,7 @@ struct Login: View {
         .padding(.top, 50)
         .background(
             NavigationLink(
-                destination: HomePage(),
+                destination: MainPage(),
                 isActive: $shouldNavigate
             ) {
                 EmptyView()

@@ -17,23 +17,12 @@ struct SearchBar: View {
                 .padding(.leading, 20)
             Image(systemName: "magnifyingglass")
                 .padding(.trailing, 15)
-//                .onTapGesture {
-//                    NetworkManager.shared.getRequest(fromURL: URL(string: "http://localhost:8080/api/jobs/search")!) {(result: Result<[JobListViewModel], Error>) in
-//                        switch result {
-//                        case .success(let jobs):
-//                           // self.jobModels = jobs
-//                            debugPrint("Succes")
-//                        case .failure(let error):
-//                            debugPrint("We got a failure trying to get jobs. The error we got was: \(error.localizedDescription)")
-//                        }
-//                        
-//                    }
-//                }
         }
         .frame(height: 40)
-        .background(Color.white.opacity(0.6))
+        .background(Color.white.opacity(0.9))
         .cornerRadius(10)
         .padding(.horizontal, 16)
+        .shadow(color: Color.black.opacity(0.7), radius: 10)
     }
 }
 

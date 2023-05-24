@@ -12,28 +12,29 @@ struct MainPage: View {
     @State private var selection: Int = 1
     
     var body: some View {
-
       TabView(selection: $selection) {
-            Register()
-                .tabItem {
-                    Image(systemName: "map")
-                    Text("map")
-                }
-                .tag(0)
-            HomePage()
+          FavoriteJobs()
+              .tabItem {
+                  Image(systemName: "heart.text.square.fill")
+                  Text("Favorites")
+              }
+              .tag(0)
+          HomePage(url: Constants.allJobsURL)
                 .tabItem {
                     Image(systemName: "house")
                     Text("Home")
                 }
                 .tag(1)
-            StartPage()
+          
+            UserProfile()
                 .tabItem {
-                    Image(systemName: "map")
-                    Text("map")
+                    Image(systemName: "person.fill")
+                    Text("Profile")
                 }
                 .tag(2)
         }
-        .tint(Color.purple1)
+        .navigationBarBackButtonHidden(true)
+        .tint(Color.lightPurple)
         .onAppear {
             selection = 1
         }

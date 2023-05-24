@@ -43,14 +43,17 @@ final class NetworkManager {
         task.resume()
     }
     
-    func getRequest<T: Decodable>(fromURL url: URL, completion: @escaping (Result<T, Error>) -> Void) {
+    func getRequest<T: Decodable>(location: String?, fromURL url: URL, completion: @escaping (Result<T, Error>) -> Void) {
         let completionOnMain: (Result<T, Error>) -> Void = { result in
             DispatchQueue.main.async {
                 completion(result)
             }
         }
         // Create the request
-        let request = buildRequest(from: url, httpMethod: HttpMethod.get)
+        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
+            components.queryItems = [URLQueryItem(name: "location", value: location ?? nil)]
+            var request = buildRequest(from: components.url!, httpMethod: HttpMethod.get)
+            request.setValue("Bearer \( UserDefaults.standard.value(forKey: "token")!)", forHTTPHeaderField: "Authorization")
         
         let urlSession = URLSession.shared.dataTask(with: request) { data, response, error in
             
@@ -70,6 +73,40 @@ final class NetworkManager {
                 completionOnMain(.success(users))
             } catch {
                 debugPrint("Could not translate the data to the requested type. Reason: \(error.localizedDescription)")
+                completionOnMain(.failure(error))
+            }
+        }
+        urlSession.resume()
+    }
+    
+    func getUsersRequest<T: Decodable>(fromURL url: URL, completion: @escaping (Result<T, Error>) -> Void) {
+        let completionOnMain: (Result<T, Error>) -> Void = { result in
+            DispatchQueue.main.async {
+                completion(result)
+            }
+        }
+        // Create the request
+        var request = buildRequest(from: url, httpMethod: HttpMethod.get)
+        request.setValue("Bearer \( UserDefaults.standard.value(forKey: "token")!)", forHTTPHeaderField: "Authorization")
+        
+        let urlSession = URLSession.shared.dataTask(with: request) { data, response, error in
+            
+            if let error = error {
+                completionOnMain(.failure(error))
+                return
+            }
+            
+            guard let urlResponse = response as? HTTPURLResponse else { return completionOnMain(.failure(ManagerErrors.invalidResponse)) }
+            if !(200..<300).contains(urlResponse.statusCode) {
+                return completionOnMain(.failure(ManagerErrors.invalidStatusCode(urlResponse.statusCode)))
+            }
+            
+            guard let data = data else { return }
+            do {
+                let users = try JSONDecoder().decode(T.self, from: data)
+                completionOnMain(.success(users))
+            } catch {
+                debugPrint("Error. Reason: \(error.self)")
                 completionOnMain(.failure(error))
             }
         }
@@ -110,6 +147,40 @@ final class NetworkManager {
         }
         task.resume()
     }
+    
+    func addJobToFavoritesRequest<T: Codable>(fromURL url: URL, jobId: Int, isfavorite: Bool, task: T, completion: @escaping (Result<T, Error>) -> Void) {
+        
+        // Add the jobId as a query parameter in the request URL
+        let urlWithUserID = url.appending(queryItems: [URLQueryItem(name: "jobId", value: "\(jobId)")])
+        let finalURL = urlWithUserID.appending(queryItems: [URLQueryItem(name: "isFavorite", value: "\(isfavorite)")])
+        debugPrint("??? \(isfavorite)")
+        // Create the request
+        var request = buildRequest(from: finalURL, httpMethod: HttpMethod.post)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        request.setValue("Bearer \( UserDefaults.standard.value(forKey: "token")!)", forHTTPHeaderField: "Authorization")
+        let taskData = try! JSONEncoder().encode(task)
+        
+        request.httpBody = taskData
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            if let httpResponse = response as? HTTPURLResponse {
+                print(httpResponse.statusCode)
+                if let data = data {
+                    print(String(data: data, encoding: .utf8)!)
+                    if httpResponse.statusCode == 200 {
+                        completion(.success(task))
+                    }
+                }
+            }
+        }
+        task.resume()
+    }
 
     func searchRequest<T: Decodable>(keyword: String, fromURL url: URL, completion: @escaping (Result<T, Error>) -> Void) {
         let completionOnMain: (Result<T, Error>) -> Void = { result in
@@ -120,8 +191,8 @@ final class NetworkManager {
         // Create the request
         var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
             components.queryItems = [URLQueryItem(name: "keyword", value: keyword)]
-            let request = buildRequest(from: components.url!, httpMethod: HttpMethod.get)
-        
+            var request = buildRequest(from: components.url!, httpMethod: HttpMethod.get)
+            request.setValue("Bearer \( UserDefaults.standard.value(forKey: "token")!)", forHTTPHeaderField: "Authorization")
         let urlSession = URLSession.shared.dataTask(with: request) { data, response, error in
 
             if let error = error {
@@ -178,6 +249,42 @@ final class NetworkManager {
             }
         }
         task.resume()
+    }
+    
+    func filterRequest<T: Decodable>(location: String?, fromURL url: URL, completion: @escaping (Result<T, Error>) -> Void) {
+        let completionOnMain: (Result<T, Error>) -> Void = { result in
+            DispatchQueue.main.async {
+                completion(result)
+            }
+        }
+        // Create the request
+        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
+            components.queryItems = [URLQueryItem(name: "location", value: location)]
+            var request = buildRequest(from: components.url!, httpMethod: HttpMethod.get)
+            request.setValue("Bearer \( UserDefaults.standard.value(forKey: "token")!)", forHTTPHeaderField: "Authorization")
+        
+        let urlSession = URLSession.shared.dataTask(with: request) { data, response, error in
+
+            if let error = error {
+                completionOnMain(.failure(error))
+                return
+            }
+            
+            guard let urlResponse = response as? HTTPURLResponse else { return completionOnMain(.failure(ManagerErrors.invalidResponse)) }
+            if !(200..<300).contains(urlResponse.statusCode) {
+                return completionOnMain(.failure(ManagerErrors.invalidStatusCode(urlResponse.statusCode)))
+            }
+            
+            guard let data = data else { return }
+            do {
+                let users = try JSONDecoder().decode(T.self, from: data)
+                completionOnMain(.success(users))
+            } catch {
+                debugPrint("Could not translate the data to the requested type. Reason: \(error.localizedDescription)")
+                completionOnMain(.failure(error))
+            }
+        }
+        urlSession.resume()
     }
 
 }

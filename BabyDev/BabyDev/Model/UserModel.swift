@@ -6,8 +6,9 @@
 //
 
 import Foundation
+import SwiftUI
 
-class UserModel: Codable, Identifiable, ObservableObject {
+class UserModel: Decodable, Identifiable, ObservableObject {
     
     var id: Int = 0
     var firstName: String = ""
@@ -15,6 +16,7 @@ class UserModel: Codable, Identifiable, ObservableObject {
     var email: String = ""
     var password: String = ""
     var phoneNumber: String = ""
+    var favoriteJobs: [JobListViewModel] = []
  //   var is_active: Bool = false
     
 }
