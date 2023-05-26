@@ -43,7 +43,7 @@ final class NetworkManager {
         task.resume()
     }
     
-    func getRequest<T: Decodable>(location: String?, fromURL url: URL, completion: @escaping (Result<T, Error>) -> Void) {
+    func getRequest<T: Decodable>(location: String?, jobType: String?, fromURL url: URL, completion: @escaping (Result<T, Error>) -> Void) {
         let completionOnMain: (Result<T, Error>) -> Void = { result in
             DispatchQueue.main.async {
                 completion(result)
@@ -51,7 +51,12 @@ final class NetworkManager {
         }
         // Create the request
         var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
+        if location != nil {
             components.queryItems = [URLQueryItem(name: "location", value: location ?? nil)]
+        }
+        if jobType != nil {
+            components.queryItems = [URLQueryItem(name: "jobType", value: jobType ?? nil)]
+        }
             var request = buildRequest(from: components.url!, httpMethod: HttpMethod.get)
             request.setValue("Bearer \( UserDefaults.standard.value(forKey: "token")!)", forHTTPHeaderField: "Authorization")
         
@@ -78,41 +83,7 @@ final class NetworkManager {
         }
         urlSession.resume()
     }
-    
-    func getUsersRequest<T: Decodable>(fromURL url: URL, completion: @escaping (Result<T, Error>) -> Void) {
-        let completionOnMain: (Result<T, Error>) -> Void = { result in
-            DispatchQueue.main.async {
-                completion(result)
-            }
-        }
-        // Create the request
-        var request = buildRequest(from: url, httpMethod: HttpMethod.get)
-        request.setValue("Bearer \( UserDefaults.standard.value(forKey: "token")!)", forHTTPHeaderField: "Authorization")
         
-        let urlSession = URLSession.shared.dataTask(with: request) { data, response, error in
-            
-            if let error = error {
-                completionOnMain(.failure(error))
-                return
-            }
-            
-            guard let urlResponse = response as? HTTPURLResponse else { return completionOnMain(.failure(ManagerErrors.invalidResponse)) }
-            if !(200..<300).contains(urlResponse.statusCode) {
-                return completionOnMain(.failure(ManagerErrors.invalidStatusCode(urlResponse.statusCode)))
-            }
-            
-            guard let data = data else { return }
-            do {
-                let users = try JSONDecoder().decode(T.self, from: data)
-                completionOnMain(.success(users))
-            } catch {
-                debugPrint("Error. Reason: \(error.self)")
-                completionOnMain(.failure(error))
-            }
-        }
-        urlSession.resume()
-    }
-    
     func applyJobRequest<T: Codable>(fromURL url: URL, jobId: Int, task: T, completion: @escaping (Result<T, Error>) -> Void) {
         
         // Add the jobId as a query parameter in the request URL
@@ -250,43 +221,6 @@ final class NetworkManager {
         }
         task.resume()
     }
-    
-    func filterRequest<T: Decodable>(location: String?, fromURL url: URL, completion: @escaping (Result<T, Error>) -> Void) {
-        let completionOnMain: (Result<T, Error>) -> Void = { result in
-            DispatchQueue.main.async {
-                completion(result)
-            }
-        }
-        // Create the request
-        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
-            components.queryItems = [URLQueryItem(name: "location", value: location)]
-            var request = buildRequest(from: components.url!, httpMethod: HttpMethod.get)
-            request.setValue("Bearer \( UserDefaults.standard.value(forKey: "token")!)", forHTTPHeaderField: "Authorization")
-        
-        let urlSession = URLSession.shared.dataTask(with: request) { data, response, error in
-
-            if let error = error {
-                completionOnMain(.failure(error))
-                return
-            }
-            
-            guard let urlResponse = response as? HTTPURLResponse else { return completionOnMain(.failure(ManagerErrors.invalidResponse)) }
-            if !(200..<300).contains(urlResponse.statusCode) {
-                return completionOnMain(.failure(ManagerErrors.invalidStatusCode(urlResponse.statusCode)))
-            }
-            
-            guard let data = data else { return }
-            do {
-                let users = try JSONDecoder().decode(T.self, from: data)
-                completionOnMain(.success(users))
-            } catch {
-                debugPrint("Could not translate the data to the requested type. Reason: \(error.localizedDescription)")
-                completionOnMain(.failure(error))
-            }
-        }
-        urlSession.resume()
-    }
-
 }
 
 extension NetworkManager {

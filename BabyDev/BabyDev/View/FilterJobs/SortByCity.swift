@@ -9,22 +9,26 @@ import SwiftUI
 
 struct SortByCity: View {
     
-    @State var searchText: String = ""
-    
     var body: some View {
         NavigationView {
             ZStack {
                 Color.homePageBG
+                    .padding(.top, -30)
                 VStack {
-                    SearchBar(text: $searchText)
                     ScrollView {
                         LazyVStack {
                             ForEach(city, id: \.self) { loc in
-                                UIFactory.shared.makeFilterTab(from: loc)
+                                NavigationLink(
+                                    destination: HomePage(url: Constants.filteredByCityURL, filter: loc, hasLocationFilterApplied: true)
+                                        .padding(.top, 40)
+                                ) {
+                                    UIFactory.shared.makeFilterTab(from: loc)
+                                }
                             }
                         }
                     }
                 }
+                .padding(.top, 70)
             }
         }
         .navigationBarBackButtonHidden(true)

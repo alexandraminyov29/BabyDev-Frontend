@@ -37,7 +37,7 @@ struct Jobcard: View {
     @ViewBuilder
     private var background: some View {
         Color.bej.opacity(1)
-        Blur(style: .systemUltraThinMaterial).opacity(0.85)
+        Blur(style: .systemUltraThinMaterial).opacity(0.35)
     }
     
     @ViewBuilder
@@ -98,7 +98,7 @@ struct Jobcard: View {
             }
             HStack() {
                 Image(systemName: "briefcase.fill")
-                Text("Job Type: " + job.type)
+                Text("Job Type: " + job.type.replacing("_", with: " "))
                     .padding(.leading, 2)
             }
             HStack() {

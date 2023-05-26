@@ -14,7 +14,7 @@ extension Color {
     
     static  let lightPurple: Color = Color(red: 0.64, green: 0.52, blue: 0.93)
     
-    static let bej: Color = Color(red: 0.77, green: 0.70, blue: 0.8)
+    static let bej: Color = Color(red: 0.9, green: 0.83, blue: 0.93)
     
     static let homePageBG = LinearGradient(gradient: Gradient(colors: [lightPurple, .clear ,.clear, .clear]), startPoint: .top, endPoint: .bottom)
     

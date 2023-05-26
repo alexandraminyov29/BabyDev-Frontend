@@ -17,7 +17,7 @@ class UIFactory {
     
     // MARK: BUTTONS
     
-    //  FAVORITE BUTTON
+    // FAVORITE BUTTON
     func makeFavoriteButton(isFavorite: Bool, action: @escaping () -> Void) -> some View {
         return FavoriteButton(isFavorite: isFavorite, action: action)
     }
@@ -25,6 +25,11 @@ class UIFactory {
     // APPLY JOB BUTTON
     func makeApplyButton(action: @escaping () -> Void) -> some View {
         return ApplyButton(action: action)
+    }
+    
+    // BACK BUTTON
+    func makeBackButton<Destination: View>(destination: Destination) -> some View {
+        return BackButton(destination: destination)
     }
 
     // MARK: JOB CARDS

@@ -23,7 +23,7 @@ struct FavoriteButton: View {
             Image(systemName: isFavorite ? "heart.fill" : "heart")
                 .resizable()
                 .frame(width: 25, height: 22)
-                .foregroundColor(isFavorite ? Color.lightPurple : Color.black.opacity(0.6))
+                .foregroundColor(Color.lightPurple)
         }
     }
 }
