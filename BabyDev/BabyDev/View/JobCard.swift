@@ -36,7 +36,8 @@ struct Jobcard: View {
     
     @ViewBuilder
     private var background: some View {
-        Color.bej.opacity(1)
+        Color.white.opacity(1)
+        Color.lightPurple.opacity(0.25)
         Blur(style: .systemUltraThinMaterial).opacity(0.35)
     }
     

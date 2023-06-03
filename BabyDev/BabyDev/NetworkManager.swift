@@ -43,7 +43,7 @@ final class NetworkManager {
         task.resume()
     }
     
-    func getRequest<T: Decodable>(location: String?, jobType: String?, fromURL url: URL, completion: @escaping (Result<T, Error>) -> Void) {
+    func getRequest<T: Decodable>(tab: String?, location: String?, jobType: String?, fromURL url: URL, completion: @escaping (Result<T, Error>) -> Void) {
         let completionOnMain: (Result<T, Error>) -> Void = { result in
             DispatchQueue.main.async {
                 completion(result)
@@ -51,13 +51,94 @@ final class NetworkManager {
         }
         // Create the request
         var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
+        
         if location != nil {
             components.queryItems = [URLQueryItem(name: "location", value: location ?? nil)]
         }
+        
         if jobType != nil {
             components.queryItems = [URLQueryItem(name: "jobType", value: jobType ?? nil)]
         }
+        
+        if tab != nil {
+            components.queryItems = [URLQueryItem(name: "tab", value: tab ?? nil)]
+        }
             var request = buildRequest(from: components.url!, httpMethod: HttpMethod.get)
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue("Bearer \( UserDefaults.standard.value(forKey: "token")!)", forHTTPHeaderField: "Authorization")
+        
+        let urlSession = URLSession.shared.dataTask(with: request) { data, response, error in
+            
+            if let error = error {
+                completionOnMain(.failure(error))
+                return
+            }
+            
+            guard let urlResponse = response as? HTTPURLResponse else { return completionOnMain(.failure(ManagerErrors.invalidResponse)) }
+            if !(200..<300).contains(urlResponse.statusCode) {
+                return completionOnMain(.failure(ManagerErrors.invalidStatusCode(urlResponse.statusCode)))
+            }
+            
+            guard let data = data else { return }
+            do {
+                let users = try JSONDecoder().decode(T.self, from: data)
+                completionOnMain(.success(users))
+            } catch {
+                debugPrint("Could not translate the data to the requested type. Reason: \(error.localizedDescription)")
+                completionOnMain(.failure(error))
+            }
+        }
+        urlSession.resume()
+    }
+    
+    func postUserDetailsRequest<T: Codable>(fromURL url: URL, newPhoneNumber: String, task: T, completion: @escaping (Result<T, Error>) -> Void) {
+        
+        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
+        
+        components.queryItems = [URLQueryItem(name: "newPhoneNumber", value: newPhoneNumber)]
+
+        var request = buildRequest(from: components.url!, httpMethod: HttpMethod.patch)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \( UserDefaults.standard.value(forKey: "token")!)", forHTTPHeaderField: "Authorization")
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            if let httpResponse = response as? HTTPURLResponse {
+                print(httpResponse.statusCode)
+                if let data = data {
+                    print(String(data: data, encoding: .utf8)!)
+                    if httpResponse.statusCode == 200 {
+                        completion(.success(task))
+                    }
+                }
+            }
+        }
+        task.resume()
+    }
+    
+    func getProfileRequest<T: Decodable>(tab: String?, email: String?, fromURL url: URL, completion: @escaping (Result<T, Error>) -> Void) {
+        let completionOnMain: (Result<T, Error>) -> Void = { result in
+            DispatchQueue.main.async {
+                completion(result)
+            }
+        }
+        // Create the request
+        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
+        
+        if tab != nil {
+            components.queryItems = [URLQueryItem(name: "tab", value: tab ?? nil)]
+        }
+        
+        if email != nil {
+            components.queryItems = [URLQueryItem(name: "email", value: email ?? nil)]
+        }
+        
+            var request = buildRequest(from: components.url!, httpMethod: HttpMethod.get)
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             request.setValue("Bearer \( UserDefaults.standard.value(forKey: "token")!)", forHTTPHeaderField: "Authorization")
         
         let urlSession = URLSession.shared.dataTask(with: request) { data, response, error in
@@ -124,7 +205,7 @@ final class NetworkManager {
         // Add the jobId as a query parameter in the request URL
         let urlWithUserID = url.appending(queryItems: [URLQueryItem(name: "jobId", value: "\(jobId)")])
         let finalURL = urlWithUserID.appending(queryItems: [URLQueryItem(name: "isFavorite", value: "\(isfavorite)")])
-        debugPrint("??? \(isfavorite)")
+
         // Create the request
         var request = buildRequest(from: finalURL, httpMethod: HttpMethod.post)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -152,6 +233,245 @@ final class NetworkManager {
         }
         task.resume()
     }
+    
+    func addUserPhotoRequest<T: Codable>(fromURL url: URL, array: [UInt8]?, completion: @escaping (Result<T, Error>) -> Void) {
+        
+        // Create the request
+        var request = buildRequest(from: url, httpMethod: HttpMethod.patch)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \( UserDefaults.standard.value(forKey: "token")!)", forHTTPHeaderField: "Authorization")
+
+        request.httpBody = Data(array ?? [])
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            if let httpResponse = response as? HTTPURLResponse {
+                print(httpResponse.statusCode)
+                if let data = data {
+                    print(String(data: data, encoding: .utf8)!)
+                }
+            }
+        }
+        task.resume()
+    }
+    
+    func editUserEducationRequest<T: Codable>(fromURL url: URL, email: String?, model: EducationModel, completion: @escaping (Result<T, Error>) -> Void) {
+        
+        // Create the request
+        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
+        
+        if email != nil {
+            components.queryItems = [URLQueryItem(name: "email", value: email ?? nil)]
+        }
+        do {
+            let jsonData = try JSONEncoder().encode(model)
+            
+            var request = buildRequest(from: components.url!, httpMethod: HttpMethod.put)
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue("Bearer \( UserDefaults.standard.value(forKey: "token")!)", forHTTPHeaderField: "Authorization")
+            
+            request.httpBody = Data(jsonData)
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                
+                if let httpResponse = response as? HTTPURLResponse {
+                    print(httpResponse.statusCode)
+                    if let data = data {
+                        print(String(data: data, encoding: .utf8)!)
+                    }
+                }
+            }
+            task.resume()
+        }
+        catch {
+                debugPrint("Could not translate the data to the requested type. Reason: \(error.localizedDescription)")
+            }
+        }
+    
+    func addUserEducationRequest<T: Codable>(fromURL url: URL, email: String?, model: EducationModel, completion: @escaping (Result<T, Error>) -> Void) {
+        
+        // Create the request
+        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
+        
+        if email != nil {
+            components.queryItems = [URLQueryItem(name: "email", value: email ?? nil)]
+        }
+        do {
+            let jsonData = try JSONEncoder().encode(model)
+            
+            var request = buildRequest(from: components.url!, httpMethod: HttpMethod.post)
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue("Bearer \( UserDefaults.standard.value(forKey: "token")!)", forHTTPHeaderField: "Authorization")
+            
+            request.httpBody = Data(jsonData)
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                
+                if let httpResponse = response as? HTTPURLResponse {
+                    print(httpResponse.statusCode)
+                    if let data = data {
+                        print(String(data: data, encoding: .utf8)!)
+                    }
+                }
+            }
+            task.resume()
+        }
+        catch {
+                debugPrint("Could not translate the data to the requested type. Reason: \(error.localizedDescription)")
+            }
+        }
+    
+    func addUserExperienceRequest<T: Codable>(fromURL url: URL, email: String?, model: ExperienceModel, completion: @escaping (Result<T, Error>) -> Void) {
+        
+        // Create the request
+        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
+        
+        if email != nil {
+            components.queryItems = [URLQueryItem(name: "email", value: email ?? nil)]
+        }
+        do {
+            let jsonData = try JSONEncoder().encode(model)
+            
+            var request = buildRequest(from: components.url!, httpMethod: HttpMethod.post)
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue("Bearer \( UserDefaults.standard.value(forKey: "token")!)", forHTTPHeaderField: "Authorization")
+            
+            request.httpBody = Data(jsonData)
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                
+                if let httpResponse = response as? HTTPURLResponse {
+                    print(httpResponse.statusCode)
+                    if let data = data {
+                        print(String(data: data, encoding: .utf8)!)
+                    }
+                }
+            }
+            task.resume()
+        }
+        catch {
+                debugPrint("Could not translate the data to the requested type. Reason: \(error.localizedDescription)")
+            }
+        }
+    
+    func addUserSkillRequest<T: Codable>(fromURL url: URL, email: String?, model: SkillModel, completion: @escaping (Result<T, Error>) -> Void) {
+        
+        // Create the request
+        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
+        
+        if email != nil {
+            components.queryItems = [URLQueryItem(name: "email", value: email ?? nil)]
+        }
+        do {
+            let jsonData = try JSONEncoder().encode(model)
+            
+            var request = buildRequest(from: components.url!, httpMethod: HttpMethod.post)
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue("Bearer \( UserDefaults.standard.value(forKey: "token")!)", forHTTPHeaderField: "Authorization")
+            
+            request.httpBody = Data(jsonData)
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                
+                if let httpResponse = response as? HTTPURLResponse {
+                    print(httpResponse.statusCode)
+                    if let data = data {
+                        print(String(data: data, encoding: .utf8)!)
+                    }
+                }
+            }
+            task.resume()
+        }
+        catch {
+                debugPrint("Could not translate the data to the requested type. Reason: \(error.localizedDescription)")
+            }
+        }
+    
+    func removeUserEducationRequest<T: Codable>(fromURL url: URL, email: String?, id: String?, completion: @escaping (Result<T, Error>) -> Void) {
+        
+        // Create the request
+ 
+        let urlWithUserID = url.appending(queryItems:[URLQueryItem(name: "email", value: email ?? nil)])
+
+        let finalURL = urlWithUserID.appending(queryItems:[URLQueryItem(name: "id", value: id ?? nil)])
+        
+        var request = buildRequest(from: finalURL, httpMethod: HttpMethod.delete)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \( UserDefaults.standard.value(forKey: "token")!)", forHTTPHeaderField: "Authorization")
+                
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            if let httpResponse = response as? HTTPURLResponse {
+                print(httpResponse.statusCode)
+                if let data = data {
+                    print(String(data: data, encoding: .utf8)!)
+                }
+            }
+        }
+        task.resume()
+    }
+    
+    func editUserExperienceRequest<T: Codable>(fromURL url: URL, email: String?, model: ExperienceModel, completion: @escaping (Result<T, Error>) -> Void) {
+        
+        // Create the request
+        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
+        
+        if email != nil {
+            components.queryItems = [URLQueryItem(name: "email", value: email ?? nil)]
+        }
+        do {
+            let jsonData = try JSONEncoder().encode(model)
+            
+            var request = buildRequest(from: components.url!, httpMethod: HttpMethod.put)
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue("Bearer \( UserDefaults.standard.value(forKey: "token")!)", forHTTPHeaderField: "Authorization")
+            
+            request.httpBody = Data(jsonData)
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                
+                if let httpResponse = response as? HTTPURLResponse {
+                    print(httpResponse.statusCode)
+                    if let data = data {
+                        print(String(data: data, encoding: .utf8)!)
+                    }
+                }
+            }
+            task.resume()
+        }
+        catch {
+                debugPrint("Could not translate the data to the requested type. Reason: \(error.localizedDescription)")
+            }
+           // task.resume()
+        }
 
     func searchRequest<T: Decodable>(keyword: String, fromURL url: URL, completion: @escaping (Result<T, Error>) -> Void) {
         let completionOnMain: (Result<T, Error>) -> Void = { result in
@@ -163,6 +483,7 @@ final class NetworkManager {
         var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
             components.queryItems = [URLQueryItem(name: "keyword", value: keyword)]
             var request = buildRequest(from: components.url!, httpMethod: HttpMethod.get)
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             request.setValue("Bearer \( UserDefaults.standard.value(forKey: "token")!)", forHTTPHeaderField: "Authorization")
         let urlSession = URLSession.shared.dataTask(with: request) { data, response, error in
 
@@ -227,6 +548,9 @@ extension NetworkManager {
     enum HttpMethod{
         case get
         case post
+        case patch
+        case put
+        case delete
     }
 }
 
@@ -243,6 +567,12 @@ private extension NetworkManager {
             request.httpMethod = "GET"
         case .post:
             request.httpMethod = "POST"
+        case .patch:
+            request.httpMethod = "PATCH"
+        case .put:
+            request.httpMethod = "PUT"
+        case .delete:
+            request.httpMethod = "DELETE"
         }
         return request
     }

@@ -31,6 +31,11 @@ class UIFactory {
     func makeBackButton<Destination: View>(destination: Destination) -> some View {
         return BackButton(destination: destination)
     }
+    
+    // SAVE BUTTON
+    func makeSaveButton(action: @escaping () -> Void) -> some View {
+        return SaveButton(action: action)
+    }
 
     // MARK: JOB CARDS
     
@@ -48,5 +53,15 @@ class UIFactory {
     
     func makeFilterTab(from text: String) -> some View {
         return FilterTab(text: text)
+    }
+    
+    // MARK: STAR RATING
+    
+    func makeRating(from ratingNumber: Int) -> some View {
+        return StarRating(ratingNumber: ratingNumber)
+    }
+    
+    func makeEditRating(from ratingNumber: Int) -> some View {
+        return ModifyStarRating(ratingNumber: ratingNumber)
     }
 }

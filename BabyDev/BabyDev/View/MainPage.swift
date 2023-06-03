@@ -26,7 +26,7 @@ struct MainPage: View {
                 }
                 .tag(1)
           
-            UserProfile()
+            Profile()
                 .tabItem {
                     Image(systemName: "person.fill")
                     Text("Profile")

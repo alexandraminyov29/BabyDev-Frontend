@@ -27,11 +27,8 @@ struct HomePage: View {
                     HStack(alignment: .top) {
                         filterButton
                         searchBar
-                            .overlay(alignment: .top){
-                                appliedFilters
-
-                            }
                     }
+                    filterText != "" ? cancelFilter : nil
                 }
                 VStack() {
                     title
@@ -46,7 +43,7 @@ struct HomePage: View {
     
     private var filterButton: some View {
         HStack(spacing: 7) {
-            NavigationLink(destination: hasLocationFilterApplied ?? false || hasJobTypeFilterApplied ?? false ? AnyView(HomePage(url: Constants.allJobsURL).padding(.top, 40)) : AnyView(Filters())) {
+            NavigationLink(destination: Filters()) {
                 Image(systemName: "line.3.horizontal.decrease.circle")
                     .resizable()
                     .frame(width: 37, height: 37)
@@ -60,16 +57,50 @@ struct HomePage: View {
         .padding(.trailing, -12)
         .padding(.top, -320)
     }
+    private var filterText: String {
+        if hasLocationFilterApplied ?? false {
+            return filter ?? ""
+        } else if hasJobTypeFilterApplied ?? false {
+            return jobType ?? ""
+        } else {
+            return ""
+        }
+        
+    }
+    
+    private var cancelFilter: some View {
+        HStack(spacing: 7) {
+            NavigationLink(destination: HomePage(url: Constants.allJobsURL).padding(.top, 40)) {
+                HStack {
+                    Image(systemName: "xmark")
+                    Text(filterText)
+                        .bold()
+                }
+                .padding(.all, 7)
+                .foregroundColor(.lightPurple)
+                .background(Color.white.clipShape(Capsule()))
+                .overlay(
+                    Capsule()
+                        .stroke(Color.black, lineWidth: 1)
+                )
+                
+                
+            }
+        }
+        .padding(.trailing, 285)
+        .padding(.top, -275)
+    }
 
     
     @ViewBuilder
     private var backgroundS: some View {
         Image("background")
             .resizable()
-            .opacity(0.8)
+            .opacity(0.6)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         Color.homePageBG
             .ignoresSafeArea(.all)
+            .opacity(0.6)
     }
     
     private var title: some View {
@@ -87,7 +118,7 @@ struct HomePage: View {
         UIFactory.shared.makeSearchBarView(from: $searchText)
             .padding(.top, -320)
             .onChange(of: searchText) { newValue in
-                NetworkManager.shared.searchRequest(keyword: searchText, fromURL: URL(string: "http://localhost:8080/api/jobs/search")! ) {(result: Result<[JobListViewModel], Error>) in
+                NetworkManager.shared.searchRequest(keyword: searchText, fromURL: Constants.searchURL ) {(result: Result<[JobListViewModel], Error>) in
                     switch result {
                     case .success(let jobs):
                         self.jobModels = jobs
@@ -97,10 +128,6 @@ struct HomePage: View {
                     }
                 }
             }
-    }
-    
-    private var appliedFilters: some View {
-            UIFactory.shared.makeBackButton(destination: HomePage(url: Constants.allJobsURL))
     }
     
     @ViewBuilder
@@ -120,9 +147,9 @@ struct HomePage: View {
                 .padding(.top, 10)
             }
         }
-        .padding(.top, 35)
+        .padding(.top, filterText != "" ? 65 : 35)
         .onAppear {
-            NetworkManager.shared.getRequest(location: filter ?? nil, jobType: jobType ?? nil, fromURL: url) {
+            NetworkManager.shared.getRequest(tab: nil, location: filter ?? nil, jobType: jobType ?? nil, fromURL: url) {
                 (result: Result<[JobListViewModel], Error>) in
                 switch result {
                 case .success(let jobs):

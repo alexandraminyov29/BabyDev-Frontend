@@ -13,7 +13,7 @@ class JobCardVM: ObservableObject {
     @Published var jobDTO = [JobListViewModel]()
 
     func getJob(job: [JobModel]) {
-        NetworkManager.shared.getRequest(location: nil, jobType: nil, fromURL: URL(string: "http://localhost:8080/api/jobs/all")!) {
+        NetworkManager.shared.getRequest(tab: nil, location: nil, jobType: nil, fromURL: URL(string: "http://localhost:8080/api/jobs/all")!) {
             (result: Result<[JobModel], Error>) in
             switch result {
             case .success(let jobs):

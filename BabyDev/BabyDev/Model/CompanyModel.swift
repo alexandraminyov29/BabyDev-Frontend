@@ -10,6 +10,9 @@ import Foundation
 class CompanyModel: Codable, Identifiable, ObservableObject {
     
     var id: Int = 0
+    
     var name: String = ""
+    
     var webPage: String = ""
+    
 }

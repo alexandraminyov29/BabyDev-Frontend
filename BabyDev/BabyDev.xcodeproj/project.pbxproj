@@ -8,10 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		5717E2502A006F0C00507410 /* UIFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5717E24F2A006F0C00507410 /* UIFactory.swift */; };
+		5720BD192A27CFF800D34073 /* ImageConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5720BD182A27CFF800D34073 /* ImageConverter.swift */; };
+		5720BD1D2A280FA800D34073 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5720BD1C2A280FA800D34073 /* ImagePicker.swift */; };
+		5728EE722A23B4CA0021128B /* TokenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5728EE712A23B4CA0021128B /* TokenModel.swift */; };
+		5728EE732A23B4CA0021128B /* TokenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5728EE712A23B4CA0021128B /* TokenModel.swift */; };
+		5728EE752A23B7540021128B /* EducationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5728EE742A23B7540021128B /* EducationModel.swift */; };
+		5728EE772A23B7810021128B /* ExperienceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5728EE762A23B7810021128B /* ExperienceModel.swift */; };
+		5728EE792A23B7A30021128B /* SkillModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5728EE782A23B7A30021128B /* SkillModel.swift */; };
+		5728EE7D2A23BFAA0021128B /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5728EE7C2A23BFAA0021128B /* Profile.swift */; };
+		5728EE7F2A2401B50021128B /* StarRating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5728EE7E2A2401B50021128B /* StarRating.swift */; };
+		5728EE812A24081C0021128B /* EditPersonalDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5728EE802A24081C0021128B /* EditPersonalDetails.swift */; };
 		572F371C29BFC8A400906C62 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572F371B29BFC8A400906C62 /* Colors.swift */; };
 		572F371E29BFCE4700906C62 /* Separator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572F371D29BFCE4700906C62 /* Separator.swift */; };
 		5739ED892A2020AC0074CBE7 /* SortByJobType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5739ED882A2020AC0074CBE7 /* SortByJobType.swift */; };
 		5739ED8B2A2028600074CBE7 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5739ED8A2A2028600074CBE7 /* BackButton.swift */; };
+		5739ED8D2A2165A00074CBE7 /* StartPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5777089629CFB04300CC0F57 /* StartPage.swift */; };
+		5739ED8E2A2165A00074CBE7 /* StartPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5777089629CFB04300CC0F57 /* StartPage.swift */; };
+		5739ED912A216DA20074CBE7 /* PersonalDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5739ED902A216DA20074CBE7 /* PersonalDetails.swift */; };
+		57427FD22A2174FD00C7B87D /* PersonalDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57427FD12A2174FD00C7B87D /* PersonalDetailsModel.swift */; };
 		57482DE829E9E3BC00A24DE8 /* JobCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57482DE729E9E3BC00A24DE8 /* JobCard.swift */; };
 		57482DE929E9E3BC00A24DE8 /* JobCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57482DE729E9E3BC00A24DE8 /* JobCard.swift */; };
 		57482DEA29E9E3BC00A24DE8 /* JobCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57482DE729E9E3BC00A24DE8 /* JobCard.swift */; };
@@ -37,10 +51,8 @@
 		576142FC2A1EC5B000D9E69B /* FilterTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576142FB2A1EC5B000D9E69B /* FilterTab.swift */; };
 		576142FE2A1EC98A00D9E69B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576142FD2A1EC98A00D9E69B /* Constants.swift */; };
 		57625D342A1418A000462C6D /* MainPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57625D332A1418A000462C6D /* MainPage.swift */; };
-		57625D362A155ED000462C6D /* TokenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57625D352A155ED000462C6D /* TokenModel.swift */; };
 		57625D3B2A156AF900462C6D /* JWTDecode in Frameworks */ = {isa = PBXBuildFile; productRef = 57625D3A2A156AF900462C6D /* JWTDecode */; };
 		5777089729CFB04300CC0F57 /* StartPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5777089629CFB04300CC0F57 /* StartPage.swift */; };
-		5777089929D0DE5300CC0F57 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5777089829D0DE5300CC0F57 /* UserProfile.swift */; };
 		5777089B29D0E9FA00CC0F57 /* JobModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5777089A29D0E9F900CC0F57 /* JobModel.swift */; };
 		577CBA7B2A0571BC001063F8 /* JobListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577CBA7A2A0571BC001063F8 /* JobListViewModel.swift */; };
 		577CBA7C2A0571BC001063F8 /* JobListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577CBA7A2A0571BC001063F8 /* JobListViewModel.swift */; };
@@ -57,6 +69,9 @@
 		577CBA8F2A0856C6001063F8 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577CBA8E2A0856C6001063F8 /* SearchBar.swift */; };
 		577CBA902A0856C6001063F8 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577CBA8E2A0856C6001063F8 /* SearchBar.swift */; };
 		577CBA912A0856C6001063F8 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577CBA8E2A0856C6001063F8 /* SearchBar.swift */; };
+		579570362A2968A70054696F /* EditExperience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 579570352A2968A70054696F /* EditExperience.swift */; };
+		579570382A2971050054696F /* EditSkillRating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 579570372A2971050054696F /* EditSkillRating.swift */; };
+		57980EFB2A293DB300045E7B /* EditEducation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57980EFA2A293DB300045E7B /* EditEducation.swift */; };
 		57B10AFB29B64A3500101D10 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B10AFA29B64A3500101D10 /* NetworkManager.swift */; };
 		57B10AFC29B64A3500101D10 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B10AFA29B64A3500101D10 /* NetworkManager.swift */; };
 		57B10B0129B64CE400101D10 /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B10B0029B64CE400101D10 /* Register.swift */; };
@@ -71,6 +86,10 @@
 		57D79E5629CFA414009BC48C /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D79E5529CFA414009BC48C /* LoginModel.swift */; };
 		57D79E5829CFA46F009BC48C /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D79E5729CFA46F009BC48C /* LoginVM.swift */; };
 		57D79E5A29CFA586009BC48C /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D79E5929CFA586009BC48C /* Login.swift */; };
+		57EE13052A2516510003CF87 /* SaveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57EE13042A2516510003CF87 /* SaveButton.swift */; };
+		57FEA73D2A2A637E006F37C7 /* AddEducation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FEA73C2A2A637E006F37C7 /* AddEducation.swift */; };
+		57FEA73F2A2AB1D8006F37C7 /* AddExperience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FEA73E2A2AB1D8006F37C7 /* AddExperience.swift */; };
+		57FEA7412A2ABCB6006F37C7 /* AddSkill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FEA7402A2ABCB5006F37C7 /* AddSkill.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,10 +111,21 @@
 
 /* Begin PBXFileReference section */
 		5717E24F2A006F0C00507410 /* UIFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFactory.swift; sourceTree = "<group>"; };
+		5720BD182A27CFF800D34073 /* ImageConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageConverter.swift; sourceTree = "<group>"; };
+		5720BD1C2A280FA800D34073 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		5728EE712A23B4CA0021128B /* TokenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenModel.swift; sourceTree = "<group>"; };
+		5728EE742A23B7540021128B /* EducationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EducationModel.swift; sourceTree = "<group>"; };
+		5728EE762A23B7810021128B /* ExperienceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceModel.swift; sourceTree = "<group>"; };
+		5728EE782A23B7A30021128B /* SkillModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillModel.swift; sourceTree = "<group>"; };
+		5728EE7C2A23BFAA0021128B /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		5728EE7E2A2401B50021128B /* StarRating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRating.swift; sourceTree = "<group>"; };
+		5728EE802A24081C0021128B /* EditPersonalDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPersonalDetails.swift; sourceTree = "<group>"; };
 		572F371B29BFC8A400906C62 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		572F371D29BFCE4700906C62 /* Separator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Separator.swift; sourceTree = "<group>"; };
 		5739ED882A2020AC0074CBE7 /* SortByJobType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortByJobType.swift; sourceTree = "<group>"; };
 		5739ED8A2A2028600074CBE7 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
+		5739ED902A216DA20074CBE7 /* PersonalDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalDetails.swift; sourceTree = "<group>"; };
+		57427FD12A2174FD00C7B87D /* PersonalDetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalDetailsModel.swift; sourceTree = "<group>"; };
 		57482DE729E9E3BC00A24DE8 /* JobCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobCard.swift; sourceTree = "<group>"; };
 		57482DEB29E9E62E00A24DE8 /* JobCardVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobCardVM.swift; sourceTree = "<group>"; };
 		5748D1C429E60124002470DB /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
@@ -119,15 +149,16 @@
 		576142FB2A1EC5B000D9E69B /* FilterTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTab.swift; sourceTree = "<group>"; };
 		576142FD2A1EC98A00D9E69B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		57625D332A1418A000462C6D /* MainPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPage.swift; sourceTree = "<group>"; };
-		57625D352A155ED000462C6D /* TokenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenModel.swift; sourceTree = "<group>"; };
 		5777089629CFB04300CC0F57 /* StartPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartPage.swift; sourceTree = "<group>"; };
-		5777089829D0DE5300CC0F57 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		5777089A29D0E9F900CC0F57 /* JobModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobModel.swift; sourceTree = "<group>"; };
 		577CBA7A2A0571BC001063F8 /* JobListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobListViewModel.swift; sourceTree = "<group>"; };
 		577CBA822A058766001063F8 /* CompanyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyModel.swift; sourceTree = "<group>"; };
 		577CBA862A0588C1001063F8 /* CompanyVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyVM.swift; sourceTree = "<group>"; };
 		577CBA8A2A05BACA001063F8 /* Blur.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Blur.swift; path = ../../../../../Blur.swift; sourceTree = "<group>"; };
 		577CBA8E2A0856C6001063F8 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		579570352A2968A70054696F /* EditExperience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditExperience.swift; sourceTree = "<group>"; };
+		579570372A2971050054696F /* EditSkillRating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSkillRating.swift; sourceTree = "<group>"; };
+		57980EFA2A293DB300045E7B /* EditEducation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditEducation.swift; sourceTree = "<group>"; };
 		57B10AFA29B64A3500101D10 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		57B10B0029B64CE400101D10 /* Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Register.swift; sourceTree = "<group>"; };
 		57B10B0429B64CF900101D10 /* RegisterVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterVM.swift; sourceTree = "<group>"; };
@@ -136,6 +167,10 @@
 		57D79E5529CFA414009BC48C /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
 		57D79E5729CFA46F009BC48C /* LoginVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVM.swift; sourceTree = "<group>"; };
 		57D79E5929CFA586009BC48C /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
+		57EE13042A2516510003CF87 /* SaveButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveButton.swift; sourceTree = "<group>"; };
+		57FEA73C2A2A637E006F37C7 /* AddEducation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEducation.swift; sourceTree = "<group>"; };
+		57FEA73E2A2AB1D8006F37C7 /* AddExperience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExperience.swift; sourceTree = "<group>"; };
+		57FEA7402A2ABCB5006F37C7 /* AddSkill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSkill.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,12 +199,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5728EE6D2A23B4140021128B /* Qualifications */ = {
+			isa = PBXGroup;
+			children = (
+				5728EE742A23B7540021128B /* EducationModel.swift */,
+				5728EE762A23B7810021128B /* ExperienceModel.swift */,
+				5728EE782A23B7A30021128B /* SkillModel.swift */,
+			);
+			path = Qualifications;
+			sourceTree = "<group>";
+		};
+		5728EE702A23B4BF0021128B /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				57D79E5529CFA414009BC48C /* LoginModel.swift */,
+				5728EE712A23B4CA0021128B /* TokenModel.swift */,
+				57B10B0729B64D2700101D10 /* RegisterModel.swift */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
 		572F371A29BFC88400906C62 /* UIDesign */ = {
 			isa = PBXGroup;
 			children = (
 				5717E24F2A006F0C00507410 /* UIFactory.swift */,
+				5720BD1C2A280FA800D34073 /* ImagePicker.swift */,
 				572F371B29BFC8A400906C62 /* Colors.swift */,
 				577CBA8A2A05BACA001063F8 /* Blur.swift */,
+				5720BD182A27CFF800D34073 /* ImageConverter.swift */,
 			);
 			path = UIDesign;
 			sourceTree = "<group>";
@@ -183,6 +240,22 @@
 				5739ED882A2020AC0074CBE7 /* SortByJobType.swift */,
 			);
 			path = FilterJobs;
+			sourceTree = "<group>";
+		};
+		5739ED8F2A216D810074CBE7 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				5739ED902A216DA20074CBE7 /* PersonalDetails.swift */,
+				5728EE7C2A23BFAA0021128B /* Profile.swift */,
+				5728EE802A24081C0021128B /* EditPersonalDetails.swift */,
+				57980EFA2A293DB300045E7B /* EditEducation.swift */,
+				579570352A2968A70054696F /* EditExperience.swift */,
+				579570372A2971050054696F /* EditSkillRating.swift */,
+				57FEA73C2A2A637E006F37C7 /* AddEducation.swift */,
+				57FEA73E2A2AB1D8006F37C7 /* AddExperience.swift */,
+				57FEA7402A2ABCB5006F37C7 /* AddSkill.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		574B3CAA29999E0C00782AA7 = {
@@ -254,6 +327,7 @@
 				576142EC2A1AF88600D9E69B /* ApplyButton.swift */,
 				576142E82A180D4600D9E69B /* FavoriteButton.swift */,
 				5739ED8A2A2028600074CBE7 /* BackButton.swift */,
+				57EE13042A2516510003CF87 /* SaveButton.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -280,13 +354,13 @@
 		57B10AFE29B64C7E00101D10 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				57B10B0729B64D2700101D10 /* RegisterModel.swift */,
+				5728EE702A23B4BF0021128B /* Authentication */,
+				5728EE6D2A23B4140021128B /* Qualifications */,
 				57B10B0A29B64D9300101D10 /* UserModel.swift */,
-				57D79E5529CFA414009BC48C /* LoginModel.swift */,
 				5777089A29D0E9F900CC0F57 /* JobModel.swift */,
 				577CBA7A2A0571BC001063F8 /* JobListViewModel.swift */,
 				577CBA822A058766001063F8 /* CompanyModel.swift */,
-				57625D352A155ED000462C6D /* TokenModel.swift */,
+				57427FD12A2174FD00C7B87D /* PersonalDetailsModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -294,19 +368,20 @@
 		57B10AFF29B64CA000101D10 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				5739ED872A2020310074CBE7 /* FilterJobs */,
+				5739ED8F2A216D810074CBE7 /* Profile */,
 				576142EF2A1D6E9E00D9E69B /* Buttons */,
+				5739ED872A2020310074CBE7 /* FilterJobs */,
 				57B10B0029B64CE400101D10 /* Register.swift */,
+				57482DE729E9E3BC00A24DE8 /* JobCard.swift */,
+				5777089629CFB04300CC0F57 /* StartPage.swift */,
+				577CBA8E2A0856C6001063F8 /* SearchBar.swift */,
 				572F371D29BFCE4700906C62 /* Separator.swift */,
 				57D79E5929CFA586009BC48C /* Login.swift */,
-				5777089629CFB04300CC0F57 /* StartPage.swift */,
-				5777089829D0DE5300CC0F57 /* UserProfile.swift */,
 				5748D1C729E75800002470DB /* HomePage.swift */,
 				57625D332A1418A000462C6D /* MainPage.swift */,
-				57482DE729E9E3BC00A24DE8 /* JobCard.swift */,
-				577CBA8E2A0856C6001063F8 /* SearchBar.swift */,
 				576142F02A1D78AF00D9E69B /* JobDetails.swift */,
 				576142F22A1D7D6300D9E69B /* FavoriteJobs.swift */,
+				5728EE7E2A2401B50021128B /* StarRating.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -448,7 +523,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				572F371E29BFCE4700906C62 /* Separator.swift in Sources */,
-				57625D362A155ED000462C6D /* TokenModel.swift in Sources */,
+				57FEA73D2A2A637E006F37C7 /* AddEducation.swift in Sources */,
+				5728EE772A23B7810021128B /* ExperienceModel.swift in Sources */,
 				5748D1C829E75800002470DB /* HomePage.swift in Sources */,
 				576142F72A1D8BFC00D9E69B /* SortByCity.swift in Sources */,
 				577CBA8B2A05BACA001063F8 /* Blur.swift in Sources */,
@@ -456,34 +532,49 @@
 				576142F52A1D841800D9E69B /* Filters.swift in Sources */,
 				57D79E5A29CFA586009BC48C /* Login.swift in Sources */,
 				577CBA872A0588C1001063F8 /* CompanyVM.swift in Sources */,
+				5728EE7D2A23BFAA0021128B /* Profile.swift in Sources */,
 				577CBA832A058766001063F8 /* CompanyModel.swift in Sources */,
 				5739ED892A2020AC0074CBE7 /* SortByJobType.swift in Sources */,
 				576142F32A1D7D6300D9E69B /* FavoriteJobs.swift in Sources */,
+				57FEA7412A2ABCB6006F37C7 /* AddSkill.swift in Sources */,
 				576142ED2A1AF88600D9E69B /* ApplyButton.swift in Sources */,
+				57EE13052A2516510003CF87 /* SaveButton.swift in Sources */,
+				5720BD1D2A280FA800D34073 /* ImagePicker.swift in Sources */,
 				577CBA8F2A0856C6001063F8 /* SearchBar.swift in Sources */,
 				57D79E5629CFA414009BC48C /* LoginModel.swift in Sources */,
 				5777089B29D0E9FA00CC0F57 /* JobModel.swift in Sources */,
 				576142E92A180D4600D9E69B /* FavoriteButton.swift in Sources */,
 				57B10B0B29B64D9300101D10 /* UserModel.swift in Sources */,
+				5728EE792A23B7A30021128B /* SkillModel.swift in Sources */,
+				5728EE812A24081C0021128B /* EditPersonalDetails.swift in Sources */,
 				574B3CB929999E0D00782AA7 /* ContentView.swift in Sources */,
 				57B10B0829B64D2700101D10 /* RegisterModel.swift in Sources */,
 				577CBA7B2A0571BC001063F8 /* JobListViewModel.swift in Sources */,
 				57482DEC29E9E62E00A24DE8 /* JobCardVM.swift in Sources */,
 				5717E2502A006F0C00507410 /* UIFactory.swift in Sources */,
+				579570382A2971050054696F /* EditSkillRating.swift in Sources */,
+				5728EE752A23B7540021128B /* EducationModel.swift in Sources */,
+				57FEA73F2A2AB1D8006F37C7 /* AddExperience.swift in Sources */,
+				5728EE7F2A2401B50021128B /* StarRating.swift in Sources */,
 				57B10B0129B64CE400101D10 /* Register.swift in Sources */,
 				5748D1C529E60124002470DB /* AuthenticationManager.swift in Sources */,
+				57980EFB2A293DB300045E7B /* EditEducation.swift in Sources */,
+				5728EE722A23B4CA0021128B /* TokenModel.swift in Sources */,
+				579570362A2968A70054696F /* EditExperience.swift in Sources */,
+				5720BD192A27CFF800D34073 /* ImageConverter.swift in Sources */,
 				57482DE829E9E3BC00A24DE8 /* JobCard.swift in Sources */,
 				576142FE2A1EC98A00D9E69B /* Constants.swift in Sources */,
 				5777089729CFB04300CC0F57 /* StartPage.swift in Sources */,
+				57427FD22A2174FD00C7B87D /* PersonalDetailsModel.swift in Sources */,
 				57D79E5829CFA46F009BC48C /* LoginVM.swift in Sources */,
 				5739ED8B2A2028600074CBE7 /* BackButton.swift in Sources */,
+				5739ED912A216DA20074CBE7 /* PersonalDetails.swift in Sources */,
 				576142FC2A1EC5B000D9E69B /* FilterTab.swift in Sources */,
 				572F371C29BFC8A400906C62 /* Colors.swift in Sources */,
 				57B10B0529B64CF900101D10 /* RegisterVM.swift in Sources */,
 				574B3CB729999E0D00782AA7 /* BabyDevApp.swift in Sources */,
 				576142F12A1D78AF00D9E69B /* JobDetails.swift in Sources */,
 				57625D342A1418A000462C6D /* MainPage.swift in Sources */,
-				5777089929D0DE5300CC0F57 /* UserProfile.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -492,6 +583,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				57482DED29E9E62E00A24DE8 /* JobCardVM.swift in Sources */,
+				5739ED8D2A2165A00074CBE7 /* StartPage.swift in Sources */,
 				577CBA842A058766001063F8 /* CompanyModel.swift in Sources */,
 				57B10B0229B64CE400101D10 /* Register.swift in Sources */,
 				57B10B0929B64D2700101D10 /* RegisterModel.swift in Sources */,
@@ -503,6 +595,7 @@
 				57482DE929E9E3BC00A24DE8 /* JobCard.swift in Sources */,
 				574B3CC829999E0E00782AA7 /* BabyDevTests.swift in Sources */,
 				57B10B0C29B64D9300101D10 /* UserModel.swift in Sources */,
+				5728EE732A23B4CA0021128B /* TokenModel.swift in Sources */,
 				577CBA7C2A0571BC001063F8 /* JobListViewModel.swift in Sources */,
 				57B10B0629B64CF900101D10 /* RegisterVM.swift in Sources */,
 			);
@@ -521,6 +614,7 @@
 				577CBA8D2A05BACA001063F8 /* Blur.swift in Sources */,
 				577CBA912A0856C6001063F8 /* SearchBar.swift in Sources */,
 				574B3CD429999E0E00782AA7 /* BabyDevUITestsLaunchTests.swift in Sources */,
+				5739ED8E2A2165A00074CBE7 /* StartPage.swift in Sources */,
 				574B3CD229999E0E00782AA7 /* BabyDevUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

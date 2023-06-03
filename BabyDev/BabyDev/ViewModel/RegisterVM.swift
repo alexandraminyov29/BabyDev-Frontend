@@ -15,7 +15,7 @@ class RegisterVM: ObservableObject {
     func createAccount(person: RegisterModel, shouldNavigate: Binding<Bool>) {
         NetworkManager
             .shared
-            .postRequest(fromURL: URL(string: "http://localhost:8080/api/auth/register")!, task: person) {  (result: Result<RegisterModel, Error>) in
+            .postRequest(fromURL: Constants.registerURL, task: person) {  (result: Result<RegisterModel, Error>) in
                 switch result {
                 case .success:
                     DispatchQueue.main.async {

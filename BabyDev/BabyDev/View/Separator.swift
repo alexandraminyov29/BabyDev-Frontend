@@ -18,7 +18,7 @@ struct SeparatorView: View {
                     endPoint: .trailing
                 )
             )
-            .padding(.horizontal, 30)
+            .padding(.horizontal, 32)
             .padding(.bottom, 15)
     }
 }

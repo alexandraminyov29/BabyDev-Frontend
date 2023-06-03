@@ -8,5 +8,7 @@
 import Foundation
 
 class TokenModel: Codable, Identifiable, ObservableObject {
-    var token: String = "" 
+    
+    var token: String = ""
+    
 }

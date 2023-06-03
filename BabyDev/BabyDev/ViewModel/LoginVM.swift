@@ -16,7 +16,7 @@ class LoginVM: ObservableObject {
     func login(person : LoginModel, shouldNavigate: Binding<Bool>) {
         NetworkManager
             .shared
-            .loginRequest(fromURL: URL(string: "http://localhost:8080/api/auth/authenticate")!, task: person, responseType: TokenModel()) {  (result: Result<TokenModel, Error>) in
+            .loginRequest(fromURL: Constants.loginURL, task: person, responseType: TokenModel()) {  (result: Result<TokenModel, Error>) in
                 switch result {
                 case .success(let token):
                     DispatchQueue.main.async {
