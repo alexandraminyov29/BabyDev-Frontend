@@ -91,6 +91,112 @@ final class NetworkManager {
         urlSession.resume()
     }
     
+    func getJobDetailsRequest<T: Decodable>(id: Int, fromURL url: URL, completion: @escaping (Result<T, Error>) -> Void) {
+        let completionOnMain: (Result<T, Error>) -> Void = { result in
+            DispatchQueue.main.async {
+                completion(result)
+            }
+        }
+        // Create the request
+        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
+        
+        components.queryItems = [URLQueryItem(name: "id", value: String(id))]
+        
+        var request = buildRequest(from: components.url!, httpMethod: HttpMethod.get)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \( UserDefaults.standard.value(forKey: "token")!)", forHTTPHeaderField: "Authorization")
+        
+        let urlSession = URLSession.shared.dataTask(with: request) { data, response, error in
+            
+            if let error = error {
+                completionOnMain(.failure(error))
+                return
+            }
+            
+            guard let urlResponse = response as? HTTPURLResponse else { return completionOnMain(.failure(ManagerErrors.invalidResponse)) }
+            if !(200..<300).contains(urlResponse.statusCode) {
+                return completionOnMain(.failure(ManagerErrors.invalidStatusCode(urlResponse.statusCode)))
+            }
+            
+            guard let data = data else { return }
+            do {
+                let users = try JSONDecoder().decode(T.self, from: data)
+                completionOnMain(.success(users))
+            } catch {
+                debugPrint("Could not translate the data to the requested type. Reason: \(error.localizedDescription)")
+                completionOnMain(.failure(error))
+            }
+        }
+        urlSession.resume()
+    }
+    
+    func getRecommendedJobsRequest<T: Decodable>(tab: String?, location: String?, jobType: String?, fromURL url: URL, completion: @escaping (Result<T, Error>) -> Void)  {
+        let completionOnMain: (Result<T, Error>) -> Void = { result in
+            DispatchQueue.main.async {
+                completion(result)
+            }
+        }
+        
+        // Create the request
+        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
+        
+        if let location = location {
+            components.queryItems = [URLQueryItem(name: "location", value: location)]
+        }
+        
+        if let jobType = jobType {
+            components.queryItems = [URLQueryItem(name: "jobType", value: jobType)]
+        }
+        
+        if let tab = tab {
+            components.queryItems = [URLQueryItem(name: "tab", value: tab)]
+        }
+        
+        guard components.url != nil else {
+            completionOnMain(.failure(ManagerErrors.invalidResponse))
+            return
+        }
+        
+        var request = buildRequest(from: url, httpMethod: HttpMethod.get)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(UserDefaults.standard.value(forKey: "token")!)", forHTTPHeaderField: "Authorization")
+        
+        let configuration = URLSessionConfiguration.default
+        configuration.timeoutIntervalForResource = 90
+        
+        let session = URLSession(configuration: configuration)
+        
+        let urlSession = session.dataTask(with: request) { data, response, error in
+            if let error = error {
+                completionOnMain(.failure(error))
+                return
+            }
+            
+            guard let urlResponse = response as? HTTPURLResponse else {
+                return completionOnMain(.failure(ManagerErrors.invalidResponse))
+            }
+            
+            if !(200..<300).contains(urlResponse.statusCode) {
+                return completionOnMain(.failure(ManagerErrors.invalidStatusCode(urlResponse.statusCode)))
+            }
+            
+            guard let data = data else {
+                return completionOnMain(.failure(ManagerErrors.invalidResponse))
+            }
+            
+            do {
+                let result = try JSONDecoder().decode(T.self, from: data)
+                UserDefaults.standard.set(data, forKey: "fetchedData")
+                completionOnMain(.success(result))
+            } catch {
+                debugPrint("Could not translate the data to the requested type. Reason: \(error.localizedDescription)")
+                completionOnMain(.failure(error))
+            }
+        }
+        
+        urlSession.resume()
+    }
+    
     func postUserDetailsRequest<T: Codable>(fromURL url: URL, newPhoneNumber: String, task: T, completion: @escaping (Result<T, Error>) -> Void) {
         
         var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
@@ -190,9 +296,13 @@ final class NetworkManager {
             if let httpResponse = response as? HTTPURLResponse {
                 print(httpResponse.statusCode)
                 if let data = data {
-                    print(String(data: data, encoding: .utf8)!)
                     if httpResponse.statusCode == 200 {
                         completion(.success(task))
+                    } else if httpResponse.statusCode == 403 {
+                        if let error = error {
+                            completion(.failure(error))
+                            return
+                        }
                     }
                 }
             }
@@ -222,9 +332,7 @@ final class NetworkManager {
             }
             
             if let httpResponse = response as? HTTPURLResponse {
-                print(httpResponse.statusCode)
                 if let data = data {
-                    print(String(data: data, encoding: .utf8)!)
                     if httpResponse.statusCode == 200 {
                         completion(.success(task))
                     }

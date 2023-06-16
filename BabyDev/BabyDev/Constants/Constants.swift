@@ -11,6 +11,14 @@ struct Constants {
     
     static let allJobsURL = URL(string: "http://localhost:8080/api/jobs/all")!
     
+    static let recommendedJobsURL = URL(string: "http://localhost:8080/api/jobs/recommend")!
+    
+    static let favoriteJobsURL = URL(string: "http://localhost:8080/api/jobs/favorites")!
+    
+    static let appliedJobsURL = URL(string: "http://localhost:8080/api/jobs/applied")!
+    
+    static let jobDetails = URL(string: "http://localhost:8080/api/jobs/jobDetails")!
+    
     static let filteredByCityURL = URL(string: "http://localhost:8080/api/jobs/location")!
     
     static let filteredByTypeURL = URL(string: "http://localhost:8080/api/jobs/jobType")!

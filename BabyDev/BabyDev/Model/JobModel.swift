@@ -20,10 +20,10 @@ class JobModel: Codable, Identifiable, ObservableObject {
     
     var postedDate: String = ""
     
+    var description: String = ""
+    
     var experienceRequired: String = ""
     
     var name: String = ""
-    
-    var isPromoted: Bool = false
-    
+        
 }

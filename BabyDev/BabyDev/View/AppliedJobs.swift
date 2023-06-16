@@ -1,17 +1,17 @@
 //
-//  Favorites.swift
+//  AppliedJobs.swift
 //  BabyDev
 //
-//  Created by Alexandra Minyov on 24.05.2023.
+//  Created by Alexandra Minyov on 13.06.2023.
 //
 
 import SwiftUI
 
-struct FavoriteJobs: View {
+struct AppliedJobs: View {
     
     @State private var titleText: String = ""
     @State var jobModels: [JobListViewModel] = []
-    @State private var showDropdown = false
+    @State private var showingDropdown = false
 
     var body: some View {
         NavigationView {
@@ -24,7 +24,7 @@ struct FavoriteJobs: View {
                     }
                     jobs
                 }
-                .blur(radius: showDropdown ? 3 : 0)
+                .blur(radius: showingDropdown ? 3 : 0)
                 selectViewDropdown
             }
         }
@@ -46,7 +46,7 @@ struct FavoriteJobs: View {
     
     private var buttonSelectView: some View {
         Button(action: {
-            showDropdown.toggle()
+            showingDropdown.toggle()
         }) {
             Image(systemName: "chevron.down")
                 .resizable()
@@ -62,14 +62,14 @@ struct FavoriteJobs: View {
                 .padding(.leading, -175)
                 .onAppear {
                     withAnimation(.easeInOut(duration: 0.5)) {
-                        titleText = "Favorite jobs"
+                        titleText = "Applied jobs"
                     }
                 }
         }
     }
     
     private var selectViewDropdown: some View {
-        showDropdown ? CustomizedDropdown(showDropdown: showDropdown) : nil
+        showingDropdown ? CustomizedDropdown(showDropdown: showingDropdown) : nil
     }
     
     @ViewBuilder
@@ -85,7 +85,7 @@ struct FavoriteJobs: View {
         }
         .padding(.top, 15)
         .onAppear {
-            NetworkManager.shared.getRequest(tab: nil, location: nil, jobType: nil, fromURL: Constants.favoriteJobsURL) {
+            NetworkManager.shared.getRequest(tab: nil, location: nil, jobType: nil, fromURL: Constants.appliedJobsURL) {
                 (result: Result<[JobListViewModel], Error>) in
                 switch result {
                 case .success(let jobs):

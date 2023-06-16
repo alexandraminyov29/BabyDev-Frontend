@@ -10,7 +10,6 @@ import SwiftUI
 struct Jobcard: View {
     
     var job: JobListViewModel
-    
     @StateObject var vm = JobCardVM()
     @State var isFavorite: Bool = false
     

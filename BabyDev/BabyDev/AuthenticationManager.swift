@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class AuthenticationManager {
+final class AuthenticationManager: ObservableObject {
     
     static let shared = AuthenticationManager()
     
@@ -15,7 +15,7 @@ final class AuthenticationManager {
     
     private let isLoggedInKey = "isLoggedIn"
     private let user = "userId"
-    private let loginTimestampKey = "loginTimestamp"
+    private let loginTimestampKey = "timestamp"
     
     func isLoggedIn() -> Bool {
         return UserDefaults.standard.bool(forKey: isLoggedInKey)
@@ -23,7 +23,6 @@ final class AuthenticationManager {
     
     func setLoggedIn(_ isLoggedIn: Bool) {
         UserDefaults.standard.set(isLoggedIn, forKey: isLoggedInKey)
-       // UserDefaults.standard.set(user, forKey: user)
     }
     
     func setLoginTimestamp(_ timestamp: Date) {

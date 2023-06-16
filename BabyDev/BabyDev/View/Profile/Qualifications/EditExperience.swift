@@ -14,6 +14,8 @@ struct EditExperience: View {
     @Binding var isShowingSheetExp: Bool
     @State var email: String
     @State var index: Int
+    @State private var selectedDateFrom = Date()
+    @State private var selectedDateTo = Date()
     
     var body: some View {
         ZStack {
@@ -74,16 +76,29 @@ struct EditExperience: View {
     
     private var experienceDetails: some View {
         VStack(alignment: .leading) {
-                HStack(spacing: .zero) {
-                    TextField(expModel.dateFrom, text: $expModel.dateFrom)
-                    Text("  -  ")
-                    TextField(expModel.dateTo, text: $expModel.dateTo)
-                }
-                .padding(.leading, 25)
-                .padding(.top, 10)
-                .padding(.bottom, 5)
+            Text("Select date:")
                 .font(.callout)
-                .foregroundColor(.black)
+                .padding(.leading, 180)
+            HStack {
+                DatePicker("", selection: $selectedDateFrom, displayedComponents: .date)
+                    .datePickerStyle(.automatic)
+                    .padding(.leading, 30)
+                    .onChange(of: selectedDateFrom) { newDate in
+                        expModel.dateFrom = formatDate(date: newDate)
+                    }
+                Text ("-")
+                DatePicker("", selection: $selectedDateTo, displayedComponents: .date)
+                    .datePickerStyle(.compact)
+                    .padding(.trailing, 75)
+                    .onChange(of: selectedDateTo) { newDate in
+                        expModel.dateTo = formatDate(date: newDate)
+                    }
+            }
+            .font(.callout)
+            .foregroundColor(.gray)
+            .padding(.leading, 35)
+            .padding(.bottom, 20)
+
                 HStack {
                     Text("Title: ")
                         .padding(.leading, 50)
@@ -124,5 +139,14 @@ struct EditExperience: View {
             }
         }
     }
+    
+    func formatDate(date: Date) -> String {
+        
+          let dateFormatter = DateFormatter()
+          dateFormatter.dateFormat = "dd-MM-yyyy"
+          return dateFormatter.string(from: date)
+        
+      }
+    
 }
 

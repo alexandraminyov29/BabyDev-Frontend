@@ -11,6 +11,15 @@ class JobCardVM: ObservableObject {
     
     @Published var job = [JobModel]()
     @Published var jobDTO = [JobListViewModel]()
+    
+    func getJobById(jobId: Int) -> JobModel {
+        for job in job {
+            if job.id.hashValue == jobId {
+                return job
+            }
+        }
+        return JobModel()
+    }
 
     func getJob(job: [JobModel]) {
         NetworkManager.shared.getRequest(tab: nil, location: nil, jobType: nil, fromURL: URL(string: "http://localhost:8080/api/jobs/all")!) {

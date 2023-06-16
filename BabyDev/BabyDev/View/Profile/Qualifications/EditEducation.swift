@@ -14,6 +14,10 @@ struct EditEducation: View {
     @Binding var isShowingSheetEdu: Bool
     @State var email: String
     @State var index: Int
+    @State private var selectedValue = ""
+    @State private var selectedDateFrom = Date()
+    @State private var selectedDateTo = Date()
+    let dropdown = ["HIGH_SCHOOL_GRADUATION_DIPLOMA", "BACHELOR", "MASTER"]
     
     var body: some View {
         ZStack {
@@ -74,16 +78,28 @@ struct EditEducation: View {
     
     private var educationDetails: some View {
         VStack(alignment: .leading) {
-                HStack(spacing: .zero) {
-                    TextField(educationModel.dateFrom, text: $educationModel.dateFrom)
-                    Text("  -  ")
-                    TextField(educationModel.dateTo, text: $educationModel.dateTo)
-                }
-                .padding(.leading, 25)
-                .padding(.top, 10)
-                .padding(.bottom, 5)
+            Text("Select date:")
                 .font(.callout)
-                .foregroundColor(.black)
+                .padding(.leading, 180)
+            HStack {
+                DatePicker("", selection: $selectedDateFrom, displayedComponents: .date)
+                    .datePickerStyle(.automatic)
+                    .padding(.leading, 30)
+                    .onChange(of: selectedDateFrom) { newDate in
+                        educationModel.dateFrom = formatDate(date: newDate)
+                    }
+                Text ("-")
+                DatePicker("", selection: $selectedDateTo, displayedComponents: .date)
+                    .datePickerStyle(.compact)
+                    .padding(.trailing, 75)
+                    .onChange(of: selectedDateTo) { newDate in
+                        educationModel.dateTo = formatDate(date: newDate)
+                    }
+            }
+            .font(.callout)
+            .foregroundColor(.gray)
+            .padding(.leading, 35)
+            .padding(.bottom, 20)
                 HStack {
                     Text("Institution: ")
                         .padding(.leading, 50)
@@ -105,7 +121,14 @@ struct EditEducation: View {
                         .padding(.leading, 50)
                         .autocapitalization(.none)
                         .fontWeight(.semibold)
-                    TextField(educationModel.degree, text: $educationModel.degree)
+                    Picker("Select a degree", selection: $selectedValue) {
+                            ForEach(dropdown, id: \.self) { degree in
+                                Text(degree).tag(degree)
+                            }
+                        }
+                    .onChange(of: selectedValue) { newValue in
+                        educationModel.degree = newValue
+                    }
                 }
                 SeparatorView()
         }
@@ -124,5 +147,14 @@ struct EditEducation: View {
             }
         }
     }
+    
+    func formatDate(date: Date) -> String {
+        
+          let dateFormatter = DateFormatter()
+          dateFormatter.dateFormat = "dd-MM-yyyy"
+          return dateFormatter.string(from: date)
+        
+      }
+    
 }
 

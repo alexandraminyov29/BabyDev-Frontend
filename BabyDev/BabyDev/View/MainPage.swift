@@ -12,17 +12,17 @@ struct MainPage: View {
     @State private var selection: Int = 1
     
     var body: some View {
-      TabView(selection: $selection) {
-          FavoriteJobs()
-              .tabItem {
-                  Image(systemName: "heart.text.square.fill")
-                  Text("Favorites")
-              }
-              .tag(0)
-          HomePage(url: Constants.allJobsURL)
+        TabView(selection: $selection) {
+            HomePage(url: Constants.allJobsURL)
                 .tabItem {
                     Image(systemName: "house")
                     Text("Home")
+                }
+                .tag(0)
+            RecommendedJobs()
+                .tabItem {
+                    Image(systemName: "heart.text.square.fill")
+                    Text("Job board")
                 }
                 .tag(1)
           
@@ -36,7 +36,7 @@ struct MainPage: View {
         .navigationBarBackButtonHidden(true)
         .tint(Color.lightPurple)
         .onAppear {
-            selection = 1
+            selection = 0
         }
     }
 }

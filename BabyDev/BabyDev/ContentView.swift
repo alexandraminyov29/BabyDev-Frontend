@@ -10,13 +10,10 @@ import SwiftUI
 struct ContentView: View {
 
     var body: some View {
-
-        NavigationView {
-            if AuthenticationManager.shared.shouldAskForLogin() {
-                StartPage()
-            } else {
-                MainPage()
-            }
+        if UserDefaults.standard.string(forKey: "token") == nil {
+            StartPage()
+        } else {
+            MainPage()
         }
     }
 }

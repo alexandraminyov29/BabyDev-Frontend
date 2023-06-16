@@ -33,6 +33,7 @@ struct Login: View {
             }
         }
         .navigationBarBackButtonHidden(true)
+        .navigationBarHidden(true)
     }
     private var title: some View {
         Text("\(titleText)")

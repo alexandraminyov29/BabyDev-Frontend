@@ -15,9 +15,12 @@ struct HomePage: View {
     var hasLocationFilterApplied: Bool?
     var hasJobTypeFilterApplied: Bool?
     @State var jobModels: [JobListViewModel] = []
+    @State var jobDetails: JobModel = JobModel()
+    @State var jobId: Int = 0
     @State var searchText: String = ""
     @State private var titleText: String = ""
-    @State private var isShowingSheet: Bool = false
+    @State private var isPresented: Bool = false
+    @StateObject var vm = JobCardVM()
     
     var body: some View {
         NavigationView {
@@ -138,11 +141,22 @@ struct HomePage: View {
                     UIFactory.shared.makeJobCardView(from: jobModels)
                         .shadow(color: Color.black.opacity(0.7), radius: 10)
                         .onTapGesture {
-                            isShowingSheet = true
+                            isPresented = true
+                            jobId = jobModels.id
                         }
                 }
-                .sheet(isPresented: $isShowingSheet) {
-                    JobDetails()
+                .sheet(isPresented: $isPresented) {
+                    aboutJob
+                        .onAppear {
+                            NetworkManager.shared.getJobDetailsRequest(id: jobId, fromURL: Constants.jobDetails) { (result: Result<JobModel, Error>) in
+                                switch result {
+                                case .success(let job):
+                                    jobDetails = job
+                                case .failure(let failure):
+                                    debugPrint(failure.self)
+                                }
+                            }
+                        }
                 }
                 .padding(.top, 10)
             }
@@ -154,9 +168,6 @@ struct HomePage: View {
                 switch result {
                 case .success(let jobs):
                     self.jobModels = jobs
-                    for job in jobs {
-                        debugPrint(job.favorite)
-                    }
                     debugPrint("Succes")
                 case .failure(let error):
                     debugPrint("We got a failure trying to get jobs. The error we got was: \(error)")
@@ -164,4 +175,62 @@ struct HomePage: View {
             }
         }
     }
+    
+    @ViewBuilder
+    private var aboutJob: some View {
+        ZStack {
+            Color.homePageBG
+                .ignoresSafeArea(.all)
+                .opacity(0.6)
+            VStack() {
+                VStack(alignment: .center, spacing: 20) {
+                    Image("conti")
+                        .resizable()
+                        .frame(width: 120, height: 120, alignment: .center)
+                        .clipShape(Capsule())
+                        .padding(.top, -300)
+                    
+                    VStack(alignment: .center, spacing: .zero) {
+                        Text("jobDetails.titlejobDetails.titlejobDetails.titlejobDetails.title")
+                            .font(.system(.title, design: .default))
+                            .multilineTextAlignment(.center)
+                            .fontWeight(.semibold)
+                            .padding(.top, -190)
+                    }
+                }
+                SeparatorView()
+                    .padding(.horizontal, -80)
+                    .padding(.top, -145)
+                Text(jobDetails.name)
+                    .padding(.leading, 90)
+                    .padding(.top, -10)
+                VStack(alignment: .leading, spacing: .zero) {
+                    HStack() {
+                        Image(systemName: "person.crop.circle.badge.clock")
+                            .padding(.leading, 2)
+                        Text(" Experience: " + jobDetails.experienceRequired)
+                    }
+                    HStack() {
+                        Image(systemName: "briefcase.fill")
+                        Text("Job Type: " + jobDetails.type.replacing("_", with: " "))
+                            .padding(.leading, 2)
+                    }
+                    HStack() {
+                        Image(systemName: "mappin.and.ellipse")
+                            .padding(.leading, 2)
+                        Text(" Location: " + jobDetails.location)
+                            .padding(.leading, 2)
+                    }
+                    HStack() {
+                        Image(systemName: "mappin.and.ellipse")
+                            .padding(.leading, 2)
+                        Text(" Description: " + (jobDetails.description))
+                            .padding(.leading, 2)
+                    }
+                }
+                
+            }
+        }
+    }
+    
 }

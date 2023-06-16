@@ -13,6 +13,7 @@ struct PersonalDetails: View {
     @State var educationModel: [EducationModel] = []
     @State var experienceModel: [ExperienceModel] = []
     @State var skillModel: [SkillModel] = []
+    @State var skillNames: [String] = []
     @State var email: String = ""
     @State var id: String = ""
     @State var idExp: String = ""
@@ -32,6 +33,8 @@ struct PersonalDetails: View {
     @State private var showDeleteEducationAlert = false
     @State private var showDeleteExperienceAlert = false
     @State private var showDeleteSkillAlert = false
+    @State private var redirectToLogin = false
+
     
     var body: some View {
         VStack {
@@ -417,7 +420,7 @@ struct PersonalDetails: View {
                 HStack(spacing: .zero) {
                     Text(skill.skillName)
                         .font(.title3)
-                        .frame(width: 50)
+                        .frame(width: 90, alignment: .leading)
                     Text("  ")
                     UIFactory.shared.makeRating(from: stringToNumber(stringNumber: skill.skillExperience))
                     HStack(spacing: .zero) {
@@ -457,7 +460,7 @@ struct PersonalDetails: View {
                                 )
                             }
                     }
-                    .padding(.leading, 80)
+                    .padding(.leading, 40)
                 }
                 .padding(.top, 2)
                 .padding(.leading, 30)
@@ -468,17 +471,35 @@ struct PersonalDetails: View {
         }
     }
     
-    
     private var logoffButton: some View {
-        NavigationLink(destination: Login()) {
-            HStack {
-                Text("Logout")
-                Image(systemName: "rectangle.portrait.and.arrow.right")
+        ZStack {
+            Button(action: {
+                UserDefaults.standard.removeObject(forKey: "token")
+                UserDefaults.standard.synchronize()
+                redirectToLogin = true
+            }) {
+                HStack {
+                    Text("Logout")
+                    Image(systemName: "rectangle.portrait.and.arrow.right")
+                }
+                .foregroundColor(Color.red)
+                .padding(.top, 30)
             }
-            .foregroundColor(Color.red)
-            .padding(.top, 30)
+            NavigationLink(destination: Login() .toolbar(.hidden, for: .tabBar), isActive: $redirectToLogin) {
+                EmptyView()
+            }
         }
     }
+//    private var logoffButton: some View {
+//        NavigationLink(destination: Login()) {
+//            HStack {
+//                Text("Logout")
+//                Image(systemName: "rectangle.portrait.and.arrow.right")
+//            }
+//            .foregroundColor(Color.red)
+//            .padding(.top, 30)
+//        }
+//    }
     
     private func stringToNumber(stringNumber: String) -> Int {
         let lowercaseInput = stringNumber.lowercased()
@@ -545,10 +566,11 @@ struct PersonalDetails: View {
     
     private func getSkills() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-            NetworkManager.shared.getProfileRequest(tab: nil, email: email, fromURL: Constants.skillURL) { (result: Result<[SkillModel], Error>) in
+            NetworkManager.shared.getProfileRequest(tab: nil, email: email, fromURL: Constants.skillURL) { (result: Result<SkillFullModel, Error>) in
                 switch result {
                 case .success(let skill):
-                    self.skillModel = skill
+                    self.skillModel = skill.skills
+                    self.skillNames = skill.skillNames
                     self.idSkill = skillModel.first?.id.description ?? ""
                     debugPrint("Succes")
                 case .failure(let error):
