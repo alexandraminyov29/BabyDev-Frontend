@@ -12,6 +12,8 @@ struct Login: View {
     @State private var titleText: String = ""
     @State private var person = LoginModel()
     @State private var shouldNavigate = false
+    @State private var shouldNavigateRecruiter = false
+    @State private var shouldNavigateAdmin = false
     @StateObject private var vm = LoginVM()
     
     var body: some View {
@@ -63,7 +65,12 @@ struct Login: View {
     
     private var loginButton: some View {
         Button("Sign In") {
-            vm.login(person: person, shouldNavigate: $shouldNavigate)
+            vm.login (
+                person: person,
+                shouldNavigate: $shouldNavigate,
+                shouldNavigateRecruiter: $shouldNavigateRecruiter,
+                shouldNavigateAdmin: $shouldNavigateAdmin
+                    )
         }
         .padding()
         .foregroundColor(.white)
@@ -89,5 +96,34 @@ struct Login: View {
             }
                 .hidden()
         )
+        .background(
+            NavigationLink(
+                destination: MainPageR(),
+                isActive: $shouldNavigateRecruiter
+            ) {
+                EmptyView()
+            }
+                .hidden()
+        )
+        .background(
+            NavigationLink(
+                destination: MainPage(),
+                isActive: $shouldNavigateAdmin
+            ) {
+                EmptyView()
+            }
+                .hidden()
+        )
+    }
+    
+    private var selectRole: Bool {
+        if shouldNavigate {
+            return shouldNavigate
+        } else if shouldNavigateRecruiter {
+            return shouldNavigateRecruiter
+        } else if shouldNavigateAdmin {
+            return shouldNavigateAdmin
+        }
+        return false
     }
 }

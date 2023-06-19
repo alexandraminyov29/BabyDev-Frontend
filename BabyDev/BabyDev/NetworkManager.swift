@@ -11,7 +11,7 @@ import SwiftUI
 final class NetworkManager {
     
     static let shared = NetworkManager()
-    
+        
     private init() {}
     
     func postRequest<T: Codable>(fromURL url: URL, task: T, completion: @escaping (Result<T, Error>) -> Void) {
@@ -157,12 +157,13 @@ final class NetworkManager {
             return
         }
         
+        // Create the request
         var request = buildRequest(from: url, httpMethod: HttpMethod.get)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("Bearer \(UserDefaults.standard.value(forKey: "token")!)", forHTTPHeaderField: "Authorization")
         
         let configuration = URLSessionConfiguration.default
-        configuration.timeoutIntervalForResource = 90
+        configuration.timeoutIntervalForResource = 120
         
         let session = URLSession(configuration: configuration)
         
@@ -203,6 +204,7 @@ final class NetworkManager {
         
         components.queryItems = [URLQueryItem(name: "newPhoneNumber", value: newPhoneNumber)]
 
+        // Create the request
         var request = buildRequest(from: components.url!, httpMethod: HttpMethod.patch)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("Bearer \( UserDefaults.standard.value(forKey: "token")!)", forHTTPHeaderField: "Authorization")
@@ -225,6 +227,37 @@ final class NetworkManager {
         }
         task.resume()
     }
+    
+    func addJobRequest<T: Codable>(fromURL url: URL, model: JobModel, completion: @escaping (Result<T, Error>) -> Void) {
+        
+        do {
+            let jsonData = try JSONEncoder().encode(model)
+            
+            // Create the request
+            var request = buildRequest(from: url, httpMethod: HttpMethod.post)
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue("Bearer \( UserDefaults.standard.value(forKey: "token")!)", forHTTPHeaderField: "Authorization")
+            request.httpBody = Data(jsonData)
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                
+                if let httpResponse = response as? HTTPURLResponse {
+                    print(httpResponse.statusCode)
+                    if let data = data {
+                        print(String(data: data, encoding: .utf8)!)
+                    }
+                }
+            }
+            task.resume()
+        }
+        catch {
+                debugPrint("Could not translate the data to the requested type. Reason: \(error.localizedDescription)")
+            }
+        }
     
     func getProfileRequest<T: Decodable>(tab: String?, email: String?, fromURL url: URL, completion: @escaping (Result<T, Error>) -> Void) {
         let completionOnMain: (Result<T, Error>) -> Void = { result in
@@ -270,45 +303,64 @@ final class NetworkManager {
         }
         urlSession.resume()
     }
-        
-    func applyJobRequest<T: Codable>(fromURL url: URL, jobId: Int, task: T, completion: @escaping (Result<T, Error>) -> Void) {
-        
+    
+    func editJobRequest<T: Codable>(fromURL url: URL, jobId: Int, model: JobModel, completion: @escaping (Result<T, Error>) -> Void) {
         // Add the jobId as a query parameter in the request URL
         let urlWithUserID = url.appending(queryItems: [URLQueryItem(name: "jobId", value: "\(jobId)")])
-        var urlComponents = URLComponents(string: "http://localhost:8080/api/jobs/apply")
-        urlComponents?.queryItems = [URLQueryItem(name: "jobId", value: "\(jobId)")]
-        
+        do {
+            let jsonData = try JSONEncoder().encode(model)
+            // Create the request
+            var request = buildRequest(from: urlWithUserID, httpMethod: HttpMethod.put)
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue("Bearer \( UserDefaults.standard.value(forKey: "token")!)", forHTTPHeaderField: "Authorization")
+            
+            request.httpBody = Data(jsonData)
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                
+                if let httpResponse = response as? HTTPURLResponse {
+                    print(httpResponse.statusCode)
+                    if let data = data {
+                        print(String(data: data, encoding: .utf8)!)
+                    }
+                }
+            }
+            task.resume()
+        }
+        catch {
+                debugPrint("Could not translate the data to the requested type. Reason: \(error.localizedDescription)")
+            }
+        }
+            
+    func applyJob(url: URL, jobId: Int, completion: @escaping (Int?, Error?) -> Void) {
+        // Add the jobId as a query parameter in the request URL
+        let urlWithUserID = url.appending(queryItems: [URLQueryItem(name: "jobId", value: "\(jobId)")])
+       
         // Create the request
         var request = buildRequest(from: urlWithUserID, httpMethod: HttpMethod.post)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("application/json", forHTTPHeaderField: "Accept")
         request.setValue("Bearer \( UserDefaults.standard.value(forKey: "token")!)", forHTTPHeaderField: "Authorization")
-        let taskData = try! JSONEncoder().encode(task)
-        
-        request.httpBody = taskData
-        
+
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
-                completion(.failure(error))
+                completion(nil, error)
                 return
             }
             
-            if let httpResponse = response as? HTTPURLResponse {
-                print(httpResponse.statusCode)
-                if let data = data {
-                    if httpResponse.statusCode == 200 {
-                        completion(.success(task))
-                    } else if httpResponse.statusCode == 403 {
-                        if let error = error {
-                            completion(.failure(error))
-                            return
-                        }
-                    }
-                }
+            guard let httpResponse = response as? HTTPURLResponse else {
+                completion(nil, nil)
+                return
             }
+            completion(httpResponse.statusCode, nil)
         }
         task.resume()
     }
+
     
     func addJobToFavoritesRequest<T: Codable>(fromURL url: URL, jobId: Int, isfavorite: Bool, task: T, completion: @escaping (Result<T, Error>) -> Void) {
         
@@ -332,7 +384,7 @@ final class NetworkManager {
             }
             
             if let httpResponse = response as? HTTPURLResponse {
-                if let data = data {
+                if data != nil {
                     if httpResponse.statusCode == 200 {
                         completion(.success(task))
                     }

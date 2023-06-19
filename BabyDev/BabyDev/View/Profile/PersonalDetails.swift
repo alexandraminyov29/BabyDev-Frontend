@@ -518,6 +518,7 @@ struct PersonalDetails: View {
             return 0
         }
     }
+    
     private func getUserDetails() {
         NetworkManager.shared.getProfileRequest(tab: "1", email: nil, fromURL: Constants.userProfileURL) { (result: Result<PersonalDetailsModel, Error>) in
             switch result {

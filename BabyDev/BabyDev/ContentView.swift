@@ -13,7 +13,7 @@ struct ContentView: View {
         if UserDefaults.standard.string(forKey: "token") == nil {
             StartPage()
         } else {
-            MainPage()
+            MainPageR()
         }
     }
 }

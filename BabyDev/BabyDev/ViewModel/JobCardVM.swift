@@ -6,11 +6,16 @@
 //
 
 import Foundation
+import Combine
+import SwiftUI
 
 class JobCardVM: ObservableObject {
     
     @Published var job = [JobModel]()
+    @Published var jobModel = JobModel()
     @Published var jobDTO = [JobListViewModel]()
+    @State var response : Int?
+    var error: Error?
     
     func getJobById(jobId: Int) -> JobModel {
         for job in job {
@@ -35,14 +40,15 @@ class JobCardVM: ObservableObject {
     }
     
     func applyJob(jobId: Int) {
-        NetworkManager.shared
-            .applyJobRequest(fromURL: URL(string: "http://localhost:8080/api/jobs/apply")!,jobId: jobId, task: job) {  (result: Result<[JobModel], Error>) in
-                switch result {
-                case .success:
-                    debugPrint("Success")
-                case .failure(let error):
-                    debugPrint("We got a failure trying to post. The error we got was: \(error)")}
+        NetworkManager.shared.applyJob(url: Constants.applyJobURL, jobId: jobId) { rsp, er  in
+            if let response = rsp {
+                self.response = response
+                print(response)
             }
+            if let error = er {
+                debugPrint(error)
+            }
+        }
     }
     
     func addJobToFavorites(jobId: Int, isFavorite: Bool) {

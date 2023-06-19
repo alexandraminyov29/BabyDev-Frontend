@@ -76,7 +76,7 @@ struct RecommendedJobs: View {
         ScrollView {
             LazyVStack {
                 ForEach(self.jobModels, id: \.id) { jobModels in
-                    UIFactory.shared.makeJobCardView(from: jobModels)
+                    UIFactory.shared.makeJobCardView(from: jobModels, showButton: true)
                         .shadow(color: Color.black.opacity(0.7), radius: 10)
                 }
                 .padding(.top, 10)
@@ -95,7 +95,6 @@ struct RecommendedJobs: View {
                             debugPrint("We got a failure trying to get jobs. The error we got was: \(error)")
                         }
                     }
-
                 }
             }
         }

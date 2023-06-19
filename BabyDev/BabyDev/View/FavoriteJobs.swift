@@ -77,7 +77,7 @@ struct FavoriteJobs: View {
         ScrollView {
             LazyVStack {
                 ForEach(self.jobModels, id: \.id) { jobModels in
-                    UIFactory.shared.makeJobCardView(from: jobModels)
+                    UIFactory.shared.makeJobCardView(from: jobModels, showButton: true)
                         .shadow(color: Color.black.opacity(0.7), radius: 10)
                 }
                 .padding(.top, 10)

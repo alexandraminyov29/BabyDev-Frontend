@@ -23,7 +23,4 @@ class UserModel: Decodable, Identifiable, ObservableObject {
     
     var imageData: String? = ""
     
-   // var favoriteJobs: [JobListViewModel] = []
- //   var is_active: Bool = false
-    
 }

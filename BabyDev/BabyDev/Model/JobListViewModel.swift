@@ -20,7 +20,7 @@ class JobListViewModel: Codable, Identifiable, ObservableObject {
     
     var favorite: Bool = false
     
- //   var postedDate: String = ""
+    var postedDate: String = JobModel().postedDate
     
     var name: String = JobModel().name
     

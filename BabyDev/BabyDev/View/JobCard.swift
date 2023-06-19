@@ -10,22 +10,29 @@ import SwiftUI
 struct Jobcard: View {
     
     var job: JobListViewModel
+    var showButton: Bool
     @StateObject var vm = JobCardVM()
     @State var isFavorite: Bool = false
+    @State var response : Int?
+    @State private var showAppliedJobAlert: Bool = false
     
     var body: some View {
         ZStack {
             background
-            favoriteButton
+            showButton ? favoriteButton : nil
             HStack() {
                 VStack(alignment: .leading, spacing: .zero) {
-                    jobHeader
-                    companyName
-                    jobDetails
+                    VStack(alignment: .leading, spacing: .zero)  {
+                        jobHeader
+                        companyName
+                        jobDetails
+                    }
+                    .padding(.top, 25)
+                    jobDate
                 }
                 .padding()
             }
-            applyButton
+            showButton ? applyButton : nil
         }
         .frame(width: 370, height: 200)
         .clipShape(RoundedRectangle(cornerSize: CGSize(width: 10, height: 10) ))
@@ -76,17 +83,35 @@ struct Jobcard: View {
     
     private var applyButton: some View {
         UIFactory.shared.makeApplyButton {
-            vm.applyJob(jobId: job.id)
+            NetworkManager.shared.applyJob(url: Constants.applyJobURL, jobId: job.id) { rsp, er  in
+                if let response = rsp {
+                    self.response = response
+                    if response == 409 {
+                        self.showAppliedJobAlert = true
+                    }
+                    debugPrint(response)
+                }
+                if let error = er {
+                    debugPrint(error)
+                }
+            }
         }
         .padding(.top, 140)
         .padding(.leading, 250)
+        .alert(isPresented: $showAppliedJobAlert) {
+            Alert(
+                title: Text("OOPS..."),
+                message: Text("You already applied to this job."),
+                dismissButton: .default(Text("OK"))
+                )
+        }
     }
-    //    private var jobDate: some View {
-    //        Text(job.postedDate)
-    //            .font(.footnote)
-    //            .padding(.trailing, 230)
-    //            .padding(.top, 20)
-    //    }
+        private var jobDate: some View {
+            Text(job.postedDate.replacing("-", with: "."))
+                .font(.footnote)
+                .padding(.trailing, 230)
+                .padding(.top, 25)
+        }
     
     @ViewBuilder
     private var jobDetails: some View {

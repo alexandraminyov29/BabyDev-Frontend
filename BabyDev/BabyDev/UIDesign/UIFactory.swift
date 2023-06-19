@@ -13,8 +13,6 @@ class UIFactory {
     
     static let shared = UIFactory()
     
-    
-    
     // MARK: BUTTONS
     
     // FAVORITE BUTTON
@@ -25,6 +23,21 @@ class UIFactory {
     // APPLY JOB BUTTON
     func makeApplyButton(action: @escaping () -> Void) -> some View {
         return ApplyButton(action: action)
+    }
+    
+    // APPLY JOB FROM DETAILS PAGE
+    func makeApplyJobFromDetailsButton(action: @escaping () -> Void) -> some View {
+        return ApplyJobFromDetailsButton(action: action)
+    }
+    
+    // ADD JOB BUTTON
+    func makeAddJobButton(action: @escaping () -> Void) -> some View {
+        return AddJobButton(action: action)
+    }
+    
+    // EDIT JOB BUTTON
+    func makeEditJobButton(action: @escaping () -> Void) -> some View {
+        return EditJobButton(action: action)
     }
     
     // BACK BUTTON
@@ -39,8 +52,8 @@ class UIFactory {
 
     // MARK: JOB CARDS
     
-    func makeJobCardView(from jobModel: JobListViewModel) -> some View {
-        return Jobcard(job: jobModel)
+    func makeJobCardView(from jobModel: JobListViewModel, showButton: Bool) -> some View {
+        return Jobcard(job: jobModel, showButton: showButton)
     }
     
     // MARK: SEARCH BAR

@@ -19,10 +19,10 @@ struct SortByCity: View {
                         LazyVStack {
                             ForEach(city, id: \.self) { loc in
                                 NavigationLink(
-                                    destination: HomePage(url: Constants.filteredByCityURL, filter: loc, hasLocationFilterApplied: true)
+                                    destination: HomePage(url: Constants.filteredByCityURL, filter: loc.uppercased(), hasLocationFilterApplied: true)
                                         .padding(.top, 40)
                                 ) {
-                                    UIFactory.shared.makeFilterTab(from: loc)
+                                    UIFactory.shared.makeFilterTab(from: loc.uppercased())
                                 }
                             }
                         }
@@ -34,6 +34,48 @@ struct SortByCity: View {
         .navigationBarBackButtonHidden(true)
     }
     
-    var city = ["Bucuresti", "Cluj", "Timisoara", "Iasi", "Constanta", "Craiova", "Brasov", "Galati", "Ploiesti", "Oradea", "Braila", "Arad", "Pitesti", "Sibiu", "Bacau", "Buzau", "Botosani"]
+    // GENERATED WITH CHAT GPT
+    let city = [
+        "Iasi",
+        "Arad",
+        "Pitesti",
+        "Bacau",
+        "Oradea",
+        "Bistrita",
+        "Botosani",
+        "Brasov",
+        "Braila",
+        "Buzau",
+        "Resita",
+        "Cluj-Napoca",
+        "Constanta",
+        "Sfantu Gheorghe",
+        "Targu Mures",
+        "Craiova",
+        "Piatra Neamt",
+        "Targu Jiu",
+        "Deva",
+        "Slobozia",
+        "Suceava",
+        "Alexandria",
+        "Timisoara",
+        "Tulcea",
+        "Vaslui",
+        "Ramnicu Valcea",
+        "Focsani",
+        "Galati",
+        "Giurgiu",
+        "Miercurea Ciuc",
+        "Slatina",
+        "Ploiesti",
+        "Zalau",
+        "Sibiu",
+        "Calarasi",
+        "Satu Mare",
+        "Sighetu Marmatiei",
+        "Drobeta-Turnu Severin",
+        "Radauti"
+    ]
+
 }
 
