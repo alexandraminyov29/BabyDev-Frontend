@@ -1,34 +1,39 @@
 //
-//  MainPageRecruiter.swift
+//  AppliedJobs.swift
 //  BabyDev
 //
-//  Created by Alexandra Minyov on 18.06.2023.
+//  Created by Alexandra Minyov on 13.06.2023.
 //
 
 import SwiftUI
 
-struct HomePageRecruiter: View {
+struct AppliedJobs: View {
     
     @State private var titleText: String = ""
-    @State private var isPresented: Bool = false
-    @State private var isShowingAddSheet: Bool = false
-    @State private var isShowingEditSheet: Bool = false
-    @State var jobDetails: JobModel = JobModel()
     @State var jobModels: [JobListViewModel] = []
+    @State var jobDetails: JobModel = JobModel()
+    @State private var showSheet = false
     @State var jobId: Int = 0
     @State var response : Int?
+    @State private var showingDropdown = false
     
     var body: some View {
         NavigationView {
-            ZStack{
+            ZStack {
                 backgroundS
                 VStack {
-                    title
+                    HStack {
+                        title
+                        buttonSelectView
+                    }
                     jobs
                 }
+                .blur(radius: showingDropdown ? 3 : 0)
+                selectViewDropdown
             }
         }
         .navigationBarBackButtonHidden(true)
+        .ignoresSafeArea(.all)
     }
     
     @ViewBuilder
@@ -43,36 +48,32 @@ struct HomePageRecruiter: View {
             .opacity(0.6)
     }
     
-    private var title: some View {
-        HStack {
-            Text(titleText).font(.largeTitle).bold().fontWidth(.standard)
-                .padding(.leading, 20)
-                .onAppear {
-                    withAnimation(.easeInOut(duration: 0.5)) {
-                        titleText = "My jobs"
-                    }
-                }
-            Spacer(minLength: .zero)
-            addButton
-            
+    private var buttonSelectView: some View {
+        Button(action: {
+            showingDropdown.toggle()
+        }) {
+            Image(systemName: "chevron.down")
+                .resizable()
+                .frame(width: 20, height: 12)
+                .padding(.top, 5)
+                .foregroundColor(.black)
         }
     }
     
-    private var addButton: some View {
-        Image(systemName: "plus.app")
-            .resizable()
-            .frame(width: 30, height: 30)
-            .padding(.trailing, 20)
-            .onTapGesture {
-                isShowingAddSheet = true
-            }
-            .sheet(isPresented: $isShowingAddSheet, onDismiss: {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                    getJobs()
+    private var title: some View {
+        HStack {
+            Text(titleText).font(.largeTitle).bold().fontWidth(.standard)
+                .padding(.leading, -175)
+                .onAppear {
+                    withAnimation(.easeInOut(duration: 0.5)) {
+                        titleText = "Applied jobs"
+                    }
                 }
-            }) {
-                AddJobView(isShowingSheetAdd: $isShowingAddSheet)
-            }
+        }
+    }
+    
+    private var selectViewDropdown: some View {
+        showingDropdown ? CustomizedDropdown(showDropdown: showingDropdown) : nil
     }
     
     private var jobImage: some View {
@@ -95,28 +96,42 @@ struct HomePageRecruiter: View {
         ScrollView {
             LazyVStack {
                 ForEach(self.jobModels, id: \.id) { jobModels in
-                    UIFactory.shared.makeJobCardView(from: jobModels, showButton: false, showButtonRecruiter: true)
+                    UIFactory.shared.makeJobCardView(from: jobModels, showButton: false, showButtonRecruiter: false)
                         .shadow(color: Color.black.opacity(0.7), radius: 10)
                         .onTapGesture {
-                            isPresented = true
+                            showSheet = true
                             jobId = jobModels.id
                         }
                 }
-                .sheet(isPresented: $isPresented, onDismiss: {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                        getJobs()
-                    }
-                }) {
+                .sheet(isPresented: $showSheet) {
                     aboutJob
                         .onAppear {
-                            getJob()
+                            NetworkManager.shared.getJobDetailsRequest(id: jobId, fromURL: Constants.jobDetails) { (result: Result<JobModel, Error>) in
+                                switch result {
+                                case .success(let job):
+                                    jobDetails = job
+                                case .failure(let failure):
+                                    debugPrint(failure.self)
+                                }
+                            }
                         }
                 }
+                
                 .padding(.top, 10)
             }
         }
+        .padding(.top, 15)
         .onAppear {
-            getJobs()
+            NetworkManager.shared.getRequest(tab: nil, location: nil, jobType: nil, fromURL: Constants.appliedJobsURL) {
+                (result: Result<[JobListViewModel], Error>) in
+                switch result {
+                case .success(let jobs):
+                    self.jobModels = jobs
+                    debugPrint("Succes")
+                case .failure(let error):
+                    debugPrint("We got a failure trying to get jobs. The error we got was: \(error)")
+                }
+            }
         }
     }
     
@@ -127,24 +142,6 @@ struct HomePageRecruiter: View {
                 .ignoresSafeArea(.all)
                 .opacity(0.2)
             VStack() {
-                HStack {
-                    Text("Edit ")
-                    Image(systemName: "square.and.pencil")
-                }
-                .foregroundColor(Color.lightPurple)
-                .padding(.leading, 300)
-                .padding(.trailing, -10)
-                .padding(.top, 20)
-                .onTapGesture {
-                    isShowingEditSheet = true
-                }
-                .sheet(isPresented: $isShowingEditSheet, onDismiss: {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                        getJob()
-                    }
-                }) {
-                    EditJobView(isShowingSheetEdit: $isShowingEditSheet, jobId: jobId)
-                }
                 VStack(alignment: .center, spacing: 20) {
                     jobImage
                          .frame(width: 120, height: 120, alignment: .center)
@@ -235,34 +232,8 @@ struct HomePageRecruiter: View {
                     .padding(.leading, 20)
                     .padding(.top, 5)
                 }
-                Spacer(minLength: .zero)
             }
         }
     }
-    
-    private func getJobs() {
-        NetworkManager.shared.getRequest(tab: nil, location: nil, jobType: nil, fromURL: Constants.allRecruiterJobsURL) {
-            (result: Result<[JobListViewModel], Error>) in
-            switch result {
-            case .success(let jobs):
-                self.jobModels = jobs
-                debugPrint("Succes")
-            case .failure(let error):
-                debugPrint("We got a failure trying to get jobs. The error we got was: \(error)")
-            }
-        }
-    }
-    
-    private func getJob() {
-        NetworkManager.shared.getJobDetailsRequest(id: jobId, fromURL: Constants.jobDetails) { (result: Result<JobModel, Error>) in
-            switch result {
-            case .success(let job):
-                self.jobDetails = job
-            case .failure(let failure):
-                debugPrint(failure.self)
-            }
-        }
-    }
-    
 }
 

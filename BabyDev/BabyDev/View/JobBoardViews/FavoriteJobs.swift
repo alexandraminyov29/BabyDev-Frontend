@@ -1,104 +1,47 @@
 //
-//  HomePage.swift
+//  Favorites.swift
 //  BabyDev
 //
-//  Created by Alexandra Minyov on 13.04.2023.
+//  Created by Alexandra Minyov on 24.05.2023.
 //
 
 import SwiftUI
 
-struct HomePage: View {
+struct FavoriteJobs: View {
     
-    var url: URL
-    var filter: String?
-    var jobType: String?
-    var hasLocationFilterApplied: Bool?
-    var hasJobTypeFilterApplied: Bool?
+    @State private var titleText: String = ""
     @State var jobModels: [JobListViewModel] = []
     @State var jobDetails: JobModel = JobModel()
+    @State private var showDropdown = false
+    @State private var showSheet = false
     @State var jobId: Int = 0
-    @State var searchText: String = ""
-    @State private var titleText: String = ""
-    @State private var isPresented: Bool = false
-    @StateObject var vm = JobCardVM()
     @State var response : Int?
     @State private var showAppliedJobAlert: Bool = false
-    
+
     var body: some View {
         NavigationView {
             ZStack {
                 backgroundS
                 VStack {
-                    HStack(alignment: .top) {
-                        filterButton
-                        searchBar
+                    HStack {
+                        title
+                        buttonSelectView
                     }
-                    filterText != "" ? cancelFilter : nil
-                }
-                VStack() {
-                    title
                     jobs
                 }
+                .blur(radius: showDropdown ? 3 : 0)
+                selectViewDropdown
             }
         }
         .navigationBarBackButtonHidden(true)
-        .padding(.top, -50)
         .ignoresSafeArea(.all)
     }
-    
-    private var filterButton: some View {
-        HStack(spacing: 7) {
-            NavigationLink(destination: Filters()) {
-                Image(systemName: "line.3.horizontal.decrease.circle")
-                    .resizable()
-                    .frame(width: 37, height: 37)
-                    .foregroundColor(.white)
-                    .shadow(color: Color.black.opacity(0.8), radius: 5)
-            }
-        }
-        .padding(.leading, 7)
-        .padding(.trailing, -12)
-        .padding(.top, -320)
-    }
-    private var filterText: String {
-        if hasLocationFilterApplied ?? false {
-            return filter ?? ""
-        } else if hasJobTypeFilterApplied ?? false {
-            return jobType ?? ""
-        } else {
-            return ""
-        }
-        
-    }
-    
-    private var cancelFilter: some View {
-        HStack(spacing: 7) {
-            NavigationLink(destination: HomePage(url: Constants.allJobsURL).padding(.top, 40)) {
-                HStack {
-                    Image(systemName: "xmark")
-                    Text(filterText)
-                        .bold()
-                }
-                .padding(.all, 7)
-                .foregroundColor(.lightPurple)
-                .background(Color.white.clipShape(Capsule()))
-                .overlay(
-                    Capsule()
-                        .stroke(Color.black, lineWidth: 1)
-                )
-                
-                
-            }
-        }
-        .padding(.trailing, 285)
-        .padding(.top, -275)
-    }
-
     
     @ViewBuilder
     private var backgroundS: some View {
         Image("background")
             .resizable()
+            .padding(.top, -50)
             .opacity(0.6)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         Color.homePageBG
@@ -106,31 +49,47 @@ struct HomePage: View {
             .opacity(0.6)
     }
     
-    private var title: some View {
-        Text(titleText).font(.largeTitle).bold().fontWidth(.standard)
-            .padding(.top, 45)
-            .padding(.leading, -200)
-            .onAppear {
-                withAnimation(.easeInOut(duration: 0.5)) {
-                    titleText = "BabyDev"
-                }
-            }
+    private var buttonSelectView: some View {
+        Button(action: {
+            showDropdown.toggle()
+        }) {
+            Image(systemName: "chevron.down")
+                .resizable()
+                .frame(width: 20, height: 12)
+                .padding(.top, 5)
+                .foregroundColor(.black)
+        }
     }
     
-    private var searchBar: some View {
-        UIFactory.shared.makeSearchBarView(from: $searchText)
-            .padding(.top, -320)
-            .onChange(of: searchText) { newValue in
-                NetworkManager.shared.searchRequest(keyword: searchText, fromURL: Constants.searchURL ) {(result: Result<[JobListViewModel], Error>) in
-                    switch result {
-                    case .success(let jobs):
-                        self.jobModels = jobs
-                        debugPrint("Succes")
-                    case .failure(let error):
-                        debugPrint("We got a failure trying to get jobs. The error we got was: \(error.self)")
+    private var title: some View {
+        HStack {
+            Text(titleText).font(.largeTitle).bold().fontWidth(.standard)
+                .padding(.leading, -175)
+                .onAppear {
+                    withAnimation(.easeInOut(duration: 0.5)) {
+                        titleText = "Favorite jobs"
                     }
                 }
+        }
+    }
+    
+    private var selectViewDropdown: some View {
+        showDropdown ? CustomizedDropdown(showDropdown: showDropdown) : nil
+    }
+    
+    private var jobImage: some View {
+        VStack {
+            if let image = base64ToImage(base64String: jobDetails.image ?? "")
+                ?? Image("img") {
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 130, height: 130)
+                        .clipShape(Capsule(style: .circular))
+                        .shadow(color: .black, radius: 5)
             }
+        }
+        .padding(.top, 10)
     }
     
     @ViewBuilder
@@ -138,14 +97,14 @@ struct HomePage: View {
         ScrollView {
             LazyVStack {
                 ForEach(self.jobModels, id: \.id) { jobModels in
-                    UIFactory.shared.makeJobCardView(from: jobModels, showButton: true)
+                    UIFactory.shared.makeJobCardView(from: jobModels, showButton: false, showButtonRecruiter: false)
                         .shadow(color: Color.black.opacity(0.7), radius: 10)
                         .onTapGesture {
-                            isPresented = true
+                            showSheet = true
                             jobId = jobModels.id
                         }
                 }
-                .sheet(isPresented: $isPresented) {
+                .sheet(isPresented: $showSheet) {
                     aboutJob
                         .onAppear {
                             NetworkManager.shared.getJobDetailsRequest(id: jobId, fromURL: Constants.jobDetails) { (result: Result<JobModel, Error>) in
@@ -161,9 +120,9 @@ struct HomePage: View {
                 .padding(.top, 10)
             }
         }
-        .padding(.top, filterText != "" ? 65 : 35)
+        .padding(.top, 15)
         .onAppear {
-            NetworkManager.shared.getRequest(tab: nil, location: filter ?? nil, jobType: jobType ?? nil, fromURL: url) {
+            NetworkManager.shared.getRequest(tab: nil, location: nil, jobType: nil, fromURL: Constants.favoriteJobsURL) {
                 (result: Result<[JobListViewModel], Error>) in
                 switch result {
                 case .success(let jobs):
@@ -184,8 +143,7 @@ struct HomePage: View {
                 .opacity(0.2)
             VStack() {
                 VStack(alignment: .center, spacing: 20) {
-                    Image("conti")
-                        .resizable()
+                   jobImage
                         .frame(width: 120, height: 120, alignment: .center)
                         .clipShape(Capsule())
                         .padding(.top, 20)
@@ -299,5 +257,5 @@ struct HomePage: View {
             }
         }
     }
-    
 }
+

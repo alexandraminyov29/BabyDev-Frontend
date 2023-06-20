@@ -96,7 +96,7 @@ struct PersonalDetails: View {
             }
             
         }) {
-            ImagePicker(selectedImage: $selectedImage, isShowingImagePicker: $isShowingImagePicker)
+            ImagePicker(selectedImage: $selectedImage, showImgPicker: $isShowingImagePicker)
         }
         .padding(.top, 20)
     }
@@ -490,16 +490,6 @@ struct PersonalDetails: View {
             }
         }
     }
-//    private var logoffButton: some View {
-//        NavigationLink(destination: Login()) {
-//            HStack {
-//                Text("Logout")
-//                Image(systemName: "rectangle.portrait.and.arrow.right")
-//            }
-//            .foregroundColor(Color.red)
-//            .padding(.top, 30)
-//        }
-//    }
     
     private func stringToNumber(stringNumber: String) -> Int {
         let lowercaseInput = stringNumber.lowercased()

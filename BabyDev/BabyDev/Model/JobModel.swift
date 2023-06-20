@@ -25,5 +25,7 @@ class JobModel: Codable, Identifiable, ObservableObject {
     var experienceRequired: String = ""
     
     var name: String = ""
+    
+    var image: String? = ""
         
 }

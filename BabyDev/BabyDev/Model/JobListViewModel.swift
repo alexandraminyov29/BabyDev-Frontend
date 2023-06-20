@@ -26,4 +26,6 @@ class JobListViewModel: Codable, Identifiable, ObservableObject {
     
     var experienceRequired: String = JobModel().experienceRequired
     
+    var image: String? = ""
+    
 }

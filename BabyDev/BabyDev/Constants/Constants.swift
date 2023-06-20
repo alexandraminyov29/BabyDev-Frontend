@@ -9,6 +9,8 @@ import Foundation
 
 struct Constants {
     
+    // MARK: JOBS
+
     static let allJobsURL = URL(string: "http://localhost:8080/api/jobs/all")!
     
     static let allRecruiterJobsURL = URL(string: "http://localhost:8080/api/jobs/rall")!
@@ -33,6 +35,8 @@ struct Constants {
     
     static let searchURL = URL(string: "http://localhost:8080/api/jobs/search")!
     
+    // MARK: USER
+    
     static let registerURL = URL(string: "http://localhost:8080/api/auth/register")!
     
     static let loginURL =  URL(string: "http://localhost:8080/api/auth/authenticate")!
@@ -48,5 +52,13 @@ struct Constants {
     static let editPhoneNumber = URL(string: "http://localhost:8080/api/users/phoneno")!
     
     static let addUserPhoto = URL(string: "http://localhost:8080/api/users/image")!
+    
+    static let recriterRequestURL = URL(string: "http://localhost:8080/api/users/recruiters/requests")!
+    
+    static let acceptRecriterRequestURL = URL(string: "http://localhost:8080/api/users/recruiters/requests/resolve")!
+    
+    static let declineRecriterRequestURL = URL(string: "http://localhost:8080/api/users/recruiters/requests/resolve")!
+    
+    static let applicantsRequestURL = URL(string: "http://localhost:8080/api/jobs/getApplicants")!
 
 }

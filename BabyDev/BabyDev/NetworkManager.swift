@@ -259,6 +259,44 @@ final class NetworkManager {
             }
         }
     
+    func getApplicantsRequest<T: Decodable>(jobId: Int, fromURL url: URL, completion: @escaping (Result<T, Error>) -> Void) {
+        let completionOnMain: (Result<T, Error>) -> Void = { result in
+            DispatchQueue.main.async {
+                completion(result)
+            }
+        }
+        // Create the request
+        // Add the jobId as a query parameter in the request URL
+        let urlWithJobId = url.appending(queryItems: [URLQueryItem(name: "jobId", value: "\(jobId)")])
+        
+            var request = buildRequest(from: urlWithJobId, httpMethod: HttpMethod.get)
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue("Bearer \( UserDefaults.standard.value(forKey: "token")!)", forHTTPHeaderField: "Authorization")
+        
+        let urlSession = URLSession.shared.dataTask(with: request) { data, response, error in
+            
+            if let error = error {
+                completionOnMain(.failure(error))
+                return
+            }
+            
+            guard let urlResponse = response as? HTTPURLResponse else { return completionOnMain(.failure(ManagerErrors.invalidResponse)) }
+            if !(200..<300).contains(urlResponse.statusCode) {
+                return completionOnMain(.failure(ManagerErrors.invalidStatusCode(urlResponse.statusCode)))
+            }
+            
+            guard let data = data else { return }
+            do {
+                let users = try JSONDecoder().decode(T.self, from: data)
+                completionOnMain(.success(users))
+            } catch {
+                debugPrint("Could not translate the data to the requested type. Reason: \(error.localizedDescription)")
+                completionOnMain(.failure(error))
+            }
+        }
+        urlSession.resume()
+    }
+    
     func getProfileRequest<T: Decodable>(tab: String?, email: String?, fromURL url: URL, completion: @escaping (Result<T, Error>) -> Void) {
         let completionOnMain: (Result<T, Error>) -> Void = { result in
             DispatchQueue.main.async {
@@ -388,6 +426,60 @@ final class NetworkManager {
                     if httpResponse.statusCode == 200 {
                         completion(.success(task))
                     }
+                }
+            }
+        }
+        task.resume()
+    }
+    
+    func acceptRequestRecruiterRequest<T: Codable>(fromURL url: URL, email: String, task: T, completion: @escaping (Result<T, Error>) -> Void) {
+        
+        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
+        
+        components.queryItems = [URLQueryItem(name: "email", value: email)]
+
+        // Create the request
+        var request = buildRequest(from: components.url!, httpMethod: HttpMethod.patch)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \( UserDefaults.standard.value(forKey: "token")!)", forHTTPHeaderField: "Authorization")
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            if let httpResponse = response as? HTTPURLResponse {
+                print(httpResponse.statusCode)
+                if let data = data {
+                    print(String(data: data, encoding: .utf8)!)
+                    if httpResponse.statusCode == 200 {
+                        completion(.success(task))
+                    }
+                }
+            }
+        }
+        task.resume()
+    }
+    
+    func declineRecruiterRequestRequest<T: Codable>(fromURL url: URL, email: String, completion: @escaping (Result<T, Error>) -> Void) {
+        
+        // Create the request
+        let urlWithUserID = url.appending(queryItems:[URLQueryItem(name: "email", value: email)])
+        var request = buildRequest(from: urlWithUserID, httpMethod: HttpMethod.delete)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \( UserDefaults.standard.value(forKey: "token")!)", forHTTPHeaderField: "Authorization")
+                
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            if let httpResponse = response as? HTTPURLResponse {
+                print(httpResponse.statusCode)
+                if let data = data {
+                    print(String(data: data, encoding: .utf8)!)
                 }
             }
         }

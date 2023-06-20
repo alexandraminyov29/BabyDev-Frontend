@@ -107,7 +107,7 @@ struct Login: View {
         )
         .background(
             NavigationLink(
-                destination: MainPage(),
+                destination: AdminDashboard(),
                 isActive: $shouldNavigateAdmin
             ) {
                 EmptyView()

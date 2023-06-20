@@ -49,11 +49,32 @@ class UIFactory {
     func makeSaveButton(action: @escaping () -> Void) -> some View {
         return SaveButton(action: action)
     }
+    
+    // ACCEPT BUTTON
+    func makeAcceptButton(action: @escaping () -> Void) -> some View {
+        return AcceptButton(action: action)
+    }
+    
+    // DECLINE BUTTON
+    func makeDeclineButton(action: @escaping () -> Void) -> some View {
+        return DeclineButton(action: action)
+    }
+    
+    // SEE APPLICANTS BUTTON
+    func makeSeeApplicantsButton(action: @escaping () -> Void) -> some View {
+        return SeeApplicantsButton(action: action)
+    }
 
     // MARK: JOB CARDS
     
-    func makeJobCardView(from jobModel: JobListViewModel, showButton: Bool) -> some View {
-        return Jobcard(job: jobModel, showButton: showButton)
+    func makeJobCardView(from jobModel: JobListViewModel, showButton: Bool, showButtonRecruiter: Bool) -> some View {
+        return Jobcard(jobModel: jobModel, showButton: showButton, showButtonRecruiter: showButtonRecruiter)
+    }
+    
+    // MARK: RECRUITER REQUEST
+    
+    func makeRecruiterRequest(from recruiterModel: RecruiterModel, action: @escaping () -> Void) -> some View {
+        return RecruiterRequest(recruiterModel: recruiterModel, action: action)
     }
     
     // MARK: SEARCH BAR
