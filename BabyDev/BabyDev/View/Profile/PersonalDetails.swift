@@ -530,7 +530,7 @@ struct PersonalDetails: View {
     }
     
     private func getExpDetails() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             NetworkManager.shared.getProfileRequest(tab: nil, email: email, fromURL: Constants.experienceURL) { (result: Result<[ExperienceModel], Error>) in
                 switch result {
                 case .success(let experience):
