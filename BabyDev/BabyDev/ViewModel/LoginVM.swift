@@ -13,10 +13,10 @@ class LoginVM: ObservableObject {
     @Published var person = LoginModel()
     @State var token = TokenModel()
 
-    func login(person : LoginModel, shouldNavigate: Binding<Bool>, shouldNavigateRecruiter: Binding<Bool>, shouldNavigateAdmin: Binding<Bool>) {
+    func login(person : LoginModel, shouldNavigate: Binding<Bool>, shouldNavigateRecruiter: Binding<Bool>, shouldNavigateAdmin: Binding<Bool>, shouldShowAlert: Binding<Bool>) {
         NetworkManager
             .shared
-            .loginRequest(fromURL: Constants.loginURL, task: person, responseType: TokenModel()) {  (result: Result<TokenModel, Error>) in
+            .login(fromURL: Constants.loginURL, task: person, responseType: TokenModel()) {  (result: response<TokenModel, Error>) in
                 switch result {
                 case .success(let token):
                     self.token = token
@@ -49,6 +49,8 @@ class LoginVM: ObservableObject {
                         print("")
                     }
                 case .failure(let error):
+                    shouldShowAlert.wrappedValue = true
+                    
                     debugPrint("We got a failure trying to post. The error we got was \(error)")}
             }
     }

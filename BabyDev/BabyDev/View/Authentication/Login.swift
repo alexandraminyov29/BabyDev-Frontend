@@ -14,6 +14,7 @@ struct Login: View {
     @State private var shouldNavigate = false
     @State private var shouldNavigateRecruiter = false
     @State private var shouldNavigateAdmin = false
+    @State private var shouldShowAlert = false
     @StateObject private var vm = LoginVM()
     
     var body: some View {
@@ -74,7 +75,7 @@ struct Login: View {
                 person: person,
                 shouldNavigate: $shouldNavigate,
                 shouldNavigateRecruiter: $shouldNavigateRecruiter,
-                shouldNavigateAdmin: $shouldNavigateAdmin
+                shouldNavigateAdmin: $shouldNavigateAdmin, shouldShowAlert: $shouldShowAlert
                     )
         }
         .padding()
@@ -119,6 +120,14 @@ struct Login: View {
             }
                 .hidden()
         )
+            .alert(isPresented: $shouldShowAlert) {
+                Alert(
+                    title: Text("OOPS..."),
+                    message: Text("Your credentials are invalid!").font(.title3),
+                    dismissButton: .default(Text("OK"))
+                    )
+            }
+
     }
     
     private var selectRole: Bool {

@@ -23,6 +23,8 @@ struct HomePage: View {
     @StateObject var vm = JobCardVM()
     @State var response : Int?
     @State private var showAppliedJobAlert: Bool = false
+    @State private var showKeyboard = false
+
     
     var body: some View {
         NavigationView {
@@ -33,6 +35,7 @@ struct HomePage: View {
                         filterButton
                         searchBar
                     }
+                    .padding(.top, showKeyboard ? 280 : 0)
                     filterText != "" ? cancelFilter : nil
                 }
                 VStack() {
@@ -44,6 +47,16 @@ struct HomePage: View {
         .navigationBarBackButtonHidden(true)
         .padding(.top, -50)
         .ignoresSafeArea(.all)
+        .onAppear {
+            NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) {value in
+                    showKeyboard = true
+            }
+
+            NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { value in
+                    showKeyboard = false
+            }
+        }
+
     }
     
     private var filterButton: some View {
