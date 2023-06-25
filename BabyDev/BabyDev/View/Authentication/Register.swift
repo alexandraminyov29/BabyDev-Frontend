@@ -22,7 +22,7 @@ struct Register: View {
                     Image("logonegru")
                         .resizable()
                         .scaledToFit()
-                        .padding(.top, -250)
+                        .padding(.top, -180)
                     title
                         .scaledToFit()
                     content
@@ -79,8 +79,8 @@ struct Register: View {
             Text("Do you have an account?")
             NavigationLink(destination: Login()) {
                 Label("Sign In", systemImage: "arrow.right.circle")
-                
             }
+            .tint(Color.purple1)
         }
         .padding(.top, 50)
     }

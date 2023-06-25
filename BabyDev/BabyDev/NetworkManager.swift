@@ -490,7 +490,6 @@ final class NetworkManager {
         
         // Create the request
         var request = buildRequest(from: url, httpMethod: HttpMethod.patch)
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("Bearer \( UserDefaults.standard.value(forKey: "token")!)", forHTTPHeaderField: "Authorization")
 
         request.httpBody = Data(array ?? [])

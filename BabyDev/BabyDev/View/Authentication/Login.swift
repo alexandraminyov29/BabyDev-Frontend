@@ -21,19 +21,23 @@ struct Login: View {
             ZStack {
                 Color.backgroundColor.edgesIgnoringSafeArea(.all)
                 VStack {
+                    Spacer(minLength: .zero)
                     Image("logonegru")
                         .resizable()
                         .scaledToFit()
                         .padding(.top, -250)
                     title
                         .scaledToFit()
+                    Spacer(minLength: .zero)
                     content
                     loginButton
+                    Spacer(minLength: .zero)
                     registerButton
                     
                 }
             }
         }
+
         .navigationBarBackButtonHidden(true)
         .navigationBarHidden(true)
     }
@@ -61,6 +65,7 @@ struct Login: View {
                 .padding(.horizontal, 50)
             SeparatorView()
         }
+        .padding(.top, -130)
     }
     
     private var loginButton: some View {
@@ -84,9 +89,9 @@ struct Login: View {
             NavigationLink(destination: Register()) {
                 Label("Sign Up", systemImage: "arrow.right.circle")
                 
-            }
+            }.tint(Color.purple1)
         }
-        .padding(.top, 50)
+        .padding(.top, -50)
         .background(
             NavigationLink(
                 destination: MainPage(),

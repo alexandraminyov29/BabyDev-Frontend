@@ -424,17 +424,7 @@ struct PersonalDetails: View {
                     Text("  ")
                     UIFactory.shared.makeRating(from: stringToNumber(stringNumber: skill.skillExperience))
                     HStack(spacing: .zero) {
-                        Image(systemName: "square.and.pencil")
-                            .foregroundColor(Color.lightPurple)
-                            .onTapGesture {
-                                isShowingSheetSkill = true
-                            }
-                            .sheet(isPresented: $isShowingSheetSkill, onDismiss: {
-                                getExpDetails()
-                            }) {
-                                EditSkillRating(isShowingSheetSkill: $isShowingSheetSkill, email: email)
-                            }
-                        Text("  ")
+                        Text("       ")
                         Image(systemName: "trash")
                             .foregroundColor(Color.lightPurple)
                             .onTapGesture {

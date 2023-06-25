@@ -13,7 +13,15 @@ struct ContentView: View {
         if UserDefaults.standard.string(forKey: "token") == nil {
             StartPage()
         } else {
-            HomePageRecruiter()
+            if UserDefaults.standard.string(forKey: "role") == "ADMIN" {
+                AdminDashboard()
+            } else if UserDefaults.standard.string(forKey: "role") == "RECRUITER" {
+                MainPageR()
+            } else if UserDefaults.standard.string(forKey: "role") == "STANDARD" {
+                MainPage()
+            } else {
+                Login()
+            }
         }
     }
 }

@@ -76,6 +76,21 @@ struct RecommendedJobs: View {
         isShowDropdown ? CustomizedDropdown(showDropdown: isShowDropdown) : nil
     }
     
+    private var jobImage: some View {
+        VStack {
+            if let image = base64ToImage(base64String: jobDetails.image ?? "")
+                ?? Image("img") {
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 130, height: 130)
+                        .clipShape(Capsule(style: .circular))
+                        .shadow(color: .black, radius: 5)
+            }
+        }
+        .padding(.top, 10)
+    }
+    
     @ViewBuilder
     private var jobs: some View {
         ScrollView {
@@ -131,8 +146,7 @@ struct RecommendedJobs: View {
                 .opacity(0.2)
             VStack() {
                 VStack(alignment: .center, spacing: 20) {
-                    Image("conti")
-                        .resizable()
+                    jobImage
                         .frame(width: 120, height: 120, alignment: .center)
                         .clipShape(Capsule())
                         .padding(.top, 20)

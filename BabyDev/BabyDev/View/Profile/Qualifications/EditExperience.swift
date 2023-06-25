@@ -128,8 +128,8 @@ struct EditExperience: View {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 NetworkManager.shared.getProfileRequest(tab: nil, email: email, fromURL: Constants.experienceURL) { (result: Result<[ExperienceModel], Error>) in
                     switch result {
-                    case .success(let education):
-                        self.expModel = education[index]
+                    case .success(let experience):
+                        self.expModel = experience[index]
                         debugPrint("Succes")
                     case .failure(let error):
                         debugPrint("Error \(error.self)")
@@ -143,7 +143,9 @@ struct EditExperience: View {
     func formatDate(date: Date) -> String {
         
           let dateFormatter = DateFormatter()
+        
           dateFormatter.dateFormat = "dd-MM-yyyy"
+        
           return dateFormatter.string(from: date)
         
       }

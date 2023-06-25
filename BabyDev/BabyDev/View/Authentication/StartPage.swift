@@ -17,7 +17,7 @@ struct StartPage: View {
                     Image("startApp")
                         .resizable()
                            .scaledToFit()
-                        .padding(.top, -150)
+                        .padding(.top, -120)
                     welcomeMessage
                         .scaledToFit()
                     VStack(spacing: .zero) {

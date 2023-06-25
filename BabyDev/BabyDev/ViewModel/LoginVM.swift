@@ -28,14 +28,17 @@ class LoginVM: ObservableObject {
                          UserDefaults.standard.set(token.token, forKey: "token")
                         DispatchQueue.main.async {
                             if role == "STANDARD" {
+                                UserDefaults.standard.set("STANDARD", forKey: "role")
                                 shouldNavigate.wrappedValue = true
                                 shouldNavigateRecruiter.wrappedValue = false
                                 shouldNavigateAdmin.wrappedValue = false
                             } else if role == "RECRUITER" {
+                                UserDefaults.standard.set("RECRUITER", forKey: "role")
                                 shouldNavigate.wrappedValue = false
                                 shouldNavigateRecruiter.wrappedValue = true
                                 shouldNavigateAdmin.wrappedValue = false
                             } else if role == "ADMIN" {
+                                UserDefaults.standard.set("ADMIN", forKey: "role")
                                 shouldNavigate.wrappedValue = false
                                 shouldNavigateRecruiter.wrappedValue = false
                                 shouldNavigateAdmin.wrappedValue = true
@@ -45,9 +48,6 @@ class LoginVM: ObservableObject {
                     } catch {
                         print("")
                     }
-                    AuthenticationManager.shared.setLoggedIn(true)
-                    debugPrint(AuthenticationManager.shared.isLoggedIn())
-                    debugPrint("Success")
                 case .failure(let error):
                     debugPrint("We got a failure trying to post. The error we got was \(error)")}
             }
@@ -64,8 +64,8 @@ class LoginVM: ObservableObject {
     
     func extractRole(fromJWTBody body: [String: Any]) -> String? {
         for (key, value) in body {
-            if key == "role", let id = value as? String {
-                return id
+            if key == "role", let role = value as? String {
+                return role
             }
         }
         return nil

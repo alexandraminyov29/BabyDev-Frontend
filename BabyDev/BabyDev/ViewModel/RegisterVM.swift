@@ -21,9 +21,8 @@ class RegisterVM: ObservableObject {
                     DispatchQueue.main.async {
                         shouldNavigate.wrappedValue = true
                     }
-                    debugPrint("Success")
                 case .failure(let error):
-                    debugPrint("We got a failure trying to post. The error we got was: \(error)")}
+                    debugPrint("The error we got was: \(error)")}
         }
     }
 }
